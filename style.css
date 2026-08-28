@@ -1,0 +1,395 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --ink:        #f4ece2;   /* cream text on the dark half   */
+    --ink-dark:   #2a201a;   /* dark text on the light half   */
+    --muted:      #cbb9a6;
+    --muted-dark: #4c3f36;
+    --accent:     #d78f4e;
+    --accent-2:   #b8622f;
+    --line:       rgba(255, 222, 186, 0.16);
+    --line-dark:  rgba(42, 32, 26, 0.22);
+    --card:       linear-gradient(152deg, rgba(255, 226, 190, 0.10), rgba(0, 0, 0, 0.22));
+    --card-light: rgba(255, 250, 244, 0.14);
+
+    --display: "Pixelify Sans", "Courier New", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+/* html keeps its own colour so body's gradient is NOT propagated to the canvas —
+   that lets the gradient span the whole document instead of the viewport. */
+html {
+    scroll-behavior: smooth;
+    background: #8f8377;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+
+    background-color: #0d0906;
+    background-image:
+        radial-gradient(120% 70% at 78% 2%, rgba(150, 96, 48, 0.28), transparent 60%),
+        radial-gradient(90% 50% at 20% 62%, rgba(190, 150, 110, 0.18), transparent 65%),
+        linear-gradient(180deg,
+            #0d0906   0%,
+            #150e09  16%,
+            #241810  34%,
+            #3d3025  52%,
+            #63564a  70%,
+            #837669  85%,
+            #8f8377 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.wrap { max-width: 1000px; margin: 0 auto; padding: 0 28px; }
+
+a { color: var(--accent); }
+
+/* ---------- hero ---------- */
+
+header {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 48px;
+    align-items: center;
+    padding: 88px 0 96px;
+}
+
+h1 {
+    font-size: clamp(2.2rem, 5.4vw, 3.5rem);
+    line-height: 1.18;
+    margin: 0 0 22px;
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+h1 .hl { color: var(--accent); }
+
+.lede {
+    font-size: 1rem;
+    color: var(--muted);
+    margin: 0 0 34px;
+    max-width: 46ch;
+}
+
+.lede .hl { color: var(--accent); }
+
+.hero-art {
+    aspect-ratio: 1 / 0.86;
+    border-radius: 44px;
+    background:
+        radial-gradient(80% 70% at 50% 30%, rgba(215, 143, 78, 0.16), transparent 70%),
+        linear-gradient(160deg, rgba(255, 226, 190, 0.09), rgba(0, 0, 0, 0.28));
+    border: 1px solid var(--line);
+    box-shadow: inset 0 1px 0 rgba(255, 232, 205, 0.10), 0 30px 70px rgba(0, 0, 0, 0.45);
+    display: grid;
+    place-items: center;
+}
+
+.mascot {
+    width: 176px;
+    height: 162px;
+    image-rendering: pixelated;   /* keeps the sprite crisp */
+    display: block;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+    display: inline-block;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    color: #1a0f07;
+    text-decoration: none;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 13px 26px;
+    border-radius: 12px;
+    box-shadow: 0 10px 26px rgba(184, 98, 47, 0.32);
+}
+
+.btn:hover { filter: brightness(1.07); }
+
+.btn-ghost {
+    display: inline-block;
+    text-decoration: none;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 9px 20px;
+    border: 1px solid rgba(255, 250, 244, 0.55);
+    border-radius: 999px;
+    background: rgba(255, 250, 244, 0.06);
+}
+
+.btn-ghost:hover { background: rgba(255, 250, 244, 0.16); }
+/* Container sizing and the signature gradient background */
+.ig_logo {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 35px;
+  /* Complex radial gradient mimicking the official Instagram brand colors */
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The white camera outline box */
+.ig_logo::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 9px solid #ffffff;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The camera lens (center circle) and top-right flash dot */
+.ig_logo::after {
+  content: "";
+  position: absolute;
+  /* Center lens */
+  width: 38px;
+  height: 38px;
+  border: 9px solid #ffffff;
+  border-radius: 50%;
+  
+  /* Top-right flash dot created using box-shadow to avoid extra HTML elements */
+  box-shadow: 26px -26px 0 -4px #ffffff;
+}
+
+
+
+
+
+/* ---------- sections ---------- */
+
+h2 {
+    font-size: clamp(1.7rem, 3.6vw, 2.35rem);
+    margin: 0 0 26px;
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.28);
+}
+
+h3 { font-size: 1.05rem; margin: 0 0 10px; }
+
+section { padding: 20px 0 72px; }
+
+/* feature cards */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 22px 22px 26px;
+    box-shadow: inset 0 1px 0 rgba(255, 232, 205, 0.09), 0 18px 40px rgba(0, 0, 0, 0.3);
+}
+
+.card h3 {
+    font-size: 1.35rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+}
+
+.card p { margin: 0; color: var(--muted); font-size: 0.82rem; line-height: 1.7; }
+
+/* privacy block */
+
+.statement { font-size: 1.15rem; margin: 0 0 26px; max-width: 62ch; }
+
+.note {
+    background: rgba(255, 244, 232, 0.10);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 20px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    max-width: 62ch;
+}
+
+/* download strip */
+
+.strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 28px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 26px 28px;
+}
+
+.strip p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+/* questions — sits on the light half of the gradient */
+
+.faq { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+
+.qa {
+    background: var(--card-light);
+    border: 1px solid rgba(255, 250, 244, 0.28);
+    border-radius: 20px;
+    padding: 26px 28px;
+    color: var(--ink-dark);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+}
+
+.qa h3 { font-size: 1.2rem; color: var(--ink-dark); margin-bottom: 14px; }
+.qa p  { margin: 0; font-size: 0.95rem; color: var(--muted-dark); }
+.qa a  { color: var(--accent-2); }
+
+.contact { margin-top: 34px; }
+
+.contact-list {
+    list-style: none;
+    margin: 22px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+    justify-items: start;
+}
+
+.contact-list a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 7px 12px 7px 6px;
+    margin-left: -6px;
+    border-radius: 12px;
+    color: var(--ink-dark);
+    text-decoration: none;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+.contact-list a:hover {
+    background: rgba(255, 250, 244, 0.22);
+    color: #1c130d;
+}
+
+.contact-icon {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+}
+
+.contact-icon svg { width: 100%; height: auto; display: block; }
+
+/* ---------- long-form pages (privacy policy) ----------
+   These run for screens of text, so they skip the gradient and stay dark
+   throughout — cream body copy needs a dark ground the whole way down. */
+
+body.doc {
+    background-image: none;
+    background-color: #150e09;
+}
+
+body.doc .wrap { max-width: 760px; }
+
+body.doc header {
+    display: block;
+    padding: 72px 0 8px;
+}
+
+body.doc h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); }
+body.doc h2 { font-size: 1.45rem; margin: 44px 0 12px; }
+body.doc h3 { font-size: 1.05rem; margin: 28px 0 8px; }
+body.doc p, body.doc li { color: var(--muted); font-size: 0.95rem; }
+body.doc .lede { font-size: 1rem; margin-bottom: 8px; }
+
+body.doc footer {
+    text-align: left;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+}
+
+body.doc footer a { color: var(--accent); margin: 0 18px 0 0; }
+
+table { border-collapse: collapse; width: 100%; margin: 18px 0; font-size: 0.9rem; }
+th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; }
+td { color: var(--muted); }
+td:first-child { white-space: nowrap; }
+
+code {
+    background: rgba(215, 143, 78, 0.18);
+    color: var(--accent);
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+/* ---------- footer ---------- */
+
+footer {
+    margin-top: 40px;
+    padding: 26px 0 44px;
+    border-top: 1px solid rgba(42, 32, 26, 0.28);
+    text-align: center;
+    color: #fdf7f0;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+footer a { color: #fdf7f0; margin: 0 10px; }
+
+/* ---------- publish reminder ---------- */
+
+
+
+.todo code { background: rgba(0, 0, 0, 0.28); }
+
+/* ---------- responsive ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}
+
+@media (max-width: 900px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 820px) {
+    header { grid-template-columns: 1fr; padding: 64px 0 72px; }
+    .hero-art { order: -1; aspect-ratio: 1 / 0.6; border-radius: 32px; }
+    .faq { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+    .wrap { padding: 0 20px; }
+    .cards { grid-template-columns: 1fr; }
+}
