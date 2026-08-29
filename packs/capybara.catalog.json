@@ -1,12 +1,18 @@
 {
-  "creator" : "Thanachot Ananritkul",
-  "description" : "The original. Rests when you have time, and stops blinking when you do not.",
-  "download" : "https://bcm101-ai.github.io/mascot-site/packs/capybara.mascotpack",
-  "id" : "capybara",
-  "moods" : [ "calm", "attentive", "worried", "urgent", "overdue" ],
-  "name" : "Capybara",
-  "preview" : "https://bcm101-ai.github.io/mascot-site/packs/capybara-preview.png",
-  "previewFrames" : 8,
-  "price" : 0,
-  "updated" : "29 Aug 2026"
+  "creator": "Thanachot Ananritkul",
+  "description": "The original. Rests when you have time, and stops blinking when you do not.",
+  "download": "https://studymascot.com/packs/capybara.mascotpack",
+  "id": "capybara",
+  "moods": [
+    "calm",
+    "attentive",
+    "worried",
+    "urgent",
+    "overdue"
+  ],
+  "name": "Capybara",
+  "preview": "https://studymascot.com/packs/capybara-preview.png",
+  "previewFrames": 8,
+  "price": 0,
+  "updated": "29 Aug 2026"
 }

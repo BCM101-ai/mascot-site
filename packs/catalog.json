@@ -4,7 +4,7 @@
     {
       "creator": "Thanachot Ananritkul",
       "description": "The first capybara, before the moods learned to move. Same five faces, no shake \u2014 a quieter desk companion.",
-      "download": "https://bcm101-ai.github.io/mascot-site/packs/capybara-classic.mascotpack",
+      "download": "https://studymascot.com/packs/capybara-classic.mascotpack",
       "id": "capybara-classic",
       "moods": [
         "calm",
@@ -14,7 +14,7 @@
         "overdue"
       ],
       "name": "Capybara Classic",
-      "preview": "https://bcm101-ai.github.io/mascot-site/packs/capybara-classic-preview.png",
+      "preview": "https://studymascot.com/packs/capybara-classic-preview.png",
       "previewFrames": 8,
       "price": 0,
       "updated": "29 Aug 2026"
@@ -22,7 +22,7 @@
     {
       "creator": "Thanachot Ananritkul",
       "description": "The original. Rests when you have time, and stops blinking when you do not.",
-      "download": "https://bcm101-ai.github.io/mascot-site/packs/capybara.mascotpack",
+      "download": "https://studymascot.com/packs/capybara.mascotpack",
       "id": "capybara",
       "moods": [
         "calm",
@@ -32,7 +32,7 @@
         "overdue"
       ],
       "name": "Capybara",
-      "preview": "https://bcm101-ai.github.io/mascot-site/packs/capybara-preview.png",
+      "preview": "https://studymascot.com/packs/capybara-preview.png",
       "previewFrames": 8,
       "price": 0,
       "updated": "29 Aug 2026"
