@@ -19,10 +19,11 @@
 
 <p class="note">
     Your coursework is read on your Mac, stored on your Mac, and never sent to me or
-    to anyone else. There is no account, no analytics, and no tracking of any kind.
-    The one part of Mascot that uses the internet is the mascot store, and only when
-    you open it: it downloads a list of mascot packs from a website. It sends nothing
-    about you, and it never sees your coursework.
+    to anyone else. There is no analytics and no tracking of any kind.
+    Two parts of Mascot use the internet, and neither touches your coursework: the
+    mascot store, which downloads a list of packs when you open it, and an optional
+    account, which exists only so that someone who draws a mascot can publish it.
+    You never need an account to use Mascot.
 </p>
 
 <h2>Who I am</h2>
@@ -100,7 +101,11 @@
 
 <h2>Where your data is stored</h2>
 
-<p>On your Mac. Nowhere else.</p>
+<p>
+    On your Mac, apart from two things, and both only if you choose to publish a
+    mascot pack: the email address for your account, and any pack you submit. Nothing
+    to do with your coursework is among them.
+</p>
 
 <table>
     <tr><th>What</th><th>Where</th></tr>
@@ -115,6 +120,20 @@
     <tr>
         <td>Preferences — which calendar you chose,<br> what you have ticked off, where the mascot sits<br></td>
         <td>Standard macOS preferences on your Mac.</td>
+    </tr>
+    <tr>
+        <td>Your account sign-in token, if you have an account</td>
+        <td>
+            The macOS Keychain, encrypted by the operating system. Your password is
+            not stored — it is used once to sign in and then discarded.
+        </td>
+    </tr>
+    <tr>
+        <td>Packs you submit to the store</td>
+        <td>
+            On my server, privately, until they are accepted or you ask for them to be
+            deleted. Only if accepted do they become public.
+        </td>
     </tr>
     <tr>
         <td>Mascot packs you install</td>
@@ -135,7 +154,7 @@
 <h2>What leaves your Mac</h2>
 
 <p>
-    Mascot connects to two places, and only for the reasons below. Everything else
+    Mascot connects to three places, and only for the reasons below. Everything else
     stays on your Mac.
 </p>
 
@@ -169,10 +188,69 @@
     to those logs.
 </p>
 
+<h3>My server, if you publish a pack</h3>
+
 <p>
-    There is still no Mascot server. I do not receive your coursework, your calendar,
-    your email address, your name, or any usage data — there is nowhere on my side for
-    it to go.
+    An account exists for one reason: so that a person who draws a mascot pack can
+    publish it, be credited for it, and later be paid for it. <strong>You do not need
+    one to use Mascot.</strong> Deadlines, the mascot, reminders, the store and
+    installing packs all work signed out, and always will.
+</p>
+
+<p>If you choose to make one, signing in sends to my account server:</p>
+
+<ul>
+    <li>your email address</li>
+    <li>your password, once, over an encrypted connection, to check it</li>
+</ul>
+
+<p>
+    The server keeps your email address and a scrambled form of your password that
+    cannot be turned back into it. Your Mac keeps only the sign-in token it gets back,
+    in the Keychain — never the password itself.
+</p>
+
+<p>
+    Your coursework is <em>not</em> part of this. It is never sent to the account
+    server, or anywhere else, whether you have an account or not.
+</p>
+
+<p>
+    You can delete your account at any time by writing to me, and everything held for
+    it goes with it.
+</p>
+
+<h3>Packs you submit, if you make one</h3>
+
+<p>
+    This applies only to people who draw a mascot pack and send it in. If you are using
+    Mascot to keep track of coursework, none of it touches you.
+</p>
+
+<p>
+    Submitting a pack uploads its artwork and a preview image to my server, along with
+    the name, description and creator name you typed. They are stored privately: nobody
+    but you and I can see a pack while it is waiting, which is the point of it being
+    reviewed before anyone can install it.
+</p>
+
+<ul>
+    <li>If it is accepted, the pack becomes public in the store — that is what
+        submitting it asks for.</li>
+    <li>If it is not accepted, it stays private, and you get a reason.</li>
+    <li>Either way you can ask me to delete it, and it goes.</li>
+</ul>
+
+<p>
+    Your coursework is not part of a submission any more than it is part of anything
+    else. Only the files you chose and the words you typed are sent.
+</p>
+
+<h3>What I still do not receive</h3>
+
+<p>
+    Your coursework, your calendar, your deadlines, or any record of how you use the
+    app — with or without an account. There is nowhere on my side for any of it to go.
 </p>
 
 <h2>What I do not do</h2>
@@ -210,9 +288,10 @@
 <h3>Deleting everything</h3>
 <p>
     Delete the Mascot app and remove its folder from
-    <code>~/Library/Application Support/Mascot</code>. Because nothing is stored
-    anywhere else, that is all of it. There is no account to close and nothing to
-    request from me.
+    <code>~/Library/Application Support/Mascot</code>. That is everything held on your
+    Mac. If you never made an account, that is genuinely all of it — there is nothing
+    on my side to close and nothing to request from me. If you did make one, write to
+    me and I will delete it and everything held for it.
 </p>
 
 <h3>Permissions</h3>
@@ -224,9 +303,12 @@
 
 <h2>Children</h2>
 <p>
-    Mascot is a study tool and may be used by students under 18. It collects nothing
-    about anyone, and it transmits nothing to me, regardless of age. If you are a
-    parent or school with a question, please write to me.
+    Mascot is a study tool and may be used by students under 18. Used as a study tool
+    it collects nothing about anyone and transmits nothing to me, regardless of age —
+    and that is the whole app: no account is needed for any of it. An account is only
+    for publishing a mascot pack, and if you are under 18 you should ask a parent
+    before making one. If you are a parent or school with a question, please write to
+    me.
 </p>
 
 <h2>Changes to this policy</h2>
