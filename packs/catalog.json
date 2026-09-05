@@ -20,6 +20,24 @@
       "updated": "29 Aug 2026"
     },
     {
+      "id": "capybara-expressive-v1",
+      "name": "Capybara \u2014 Expressive",
+      "creator": "Thanachot Ananritkul",
+      "description": "Five moods drawn apart rather than recoloured: the ears perk up, a sweat bead appears, the eyes go wide, and the chin finally sags onto both paws.",
+      "moods": [
+        "calm",
+        "attentive",
+        "worried",
+        "urgent",
+        "overdue"
+      ],
+      "price": 0,
+      "download": "https://studymascot.com/packs/capybara-expressive-v1.mascotpack",
+      "preview": "https://studymascot.com/packs/capybara-expressive-v1-preview.png",
+      "previewFrames": 8,
+      "updated": "6 Sep 2026"
+    },
+    {
       "creator": "Thanachot Ananritkul",
       "description": "The original. Rests when you have time, and stops blinking when you do not.",
       "download": "https://studymascot.com/packs/capybara.mascotpack",
