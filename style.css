@@ -359,7 +359,12 @@ a  { color: var(--brand-2); }
    without min-height:0 the body's content pushes the actions past max-height. */
 .sheet[open] { display: flex; flex-direction: column; }
 .sheet-head, .sheet-actions { flex: none; }
-.sheet-body { flex: 1; min-height: 0; }
+/* `flex: 1` would mean a basis of 0, and a column flex container whose own
+   height is auto measures its children by that basis — so the body counted as
+   nothing, the dialog sized to just the header and footer, and the form was
+   squashed into a strip. Basis auto lets the content set the height; min-height
+   0 still lets it shrink and scroll once the dialog reaches its max-height. */
+.sheet-body { flex: 1 1 auto; min-height: 0; }
 .sheet::backdrop { background: rgba(12, 8, 5, 0.55); backdrop-filter: blur(3px); }
 .sheet-head {
     display: flex; align-items: flex-start; gap: 16px;
