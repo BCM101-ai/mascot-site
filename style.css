@@ -303,8 +303,8 @@ a  { color: var(--brand-2); }
 .tile-lock .big { font-family: var(--display); font-size: clamp(2.2rem, 4vw, 3rem); line-height: 1; color: var(--accent); }
 
 /* ---------- packs: the store, as the app lays it out ----------
-   Cards carry only what helps you choose — the art moving, who made it, how
-   complete it is, what it costs — and open a pack page for everything else. */
+   Cards carry only what helps you choose, the art moving, who made it, how
+   complete it is, what it costs, and open a pack page for everything else. */
 .store-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -360,7 +360,7 @@ a  { color: var(--brand-2); }
 .sheet[open] { display: flex; flex-direction: column; }
 .sheet-head, .sheet-actions { flex: none; }
 /* `flex: 1` would mean a basis of 0, and a column flex container whose own
-   height is auto measures its children by that basis — so the body counted as
+   height is auto measures its children by that basis, so the body counted as
    nothing, the dialog sized to just the header and footer, and the form was
    squashed into a strip. Basis auto lets the content set the height; min-height
    0 still lets it shrink and scroll once the dialog reaches its max-height. */
@@ -815,7 +815,7 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
 .fb-status { margin: 12px 0 0; font-size: 0.9rem; min-height: 1.2em; }
 .fb-status.err { color: #a3341c; }
 .fb-status.ok  { color: #2f7a3f; }
-/* Off-screen rather than display:none — a bot reading the DOM still finds it,
+/* Off-screen rather than display:none, a bot reading the DOM still finds it,
    which is the entire point, while nobody using the page ever meets it. */
 .fb-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 /* The feedback dialog wraps its sections in a <form>, so the column layout
@@ -823,7 +823,7 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
 /* The form generates no box of its own, so its three sections become the
    dialog's own flex children and lay out exactly like a pack's page. It used
    to be a nested flex column sized with height:100%, which Chromium resolved
-   against the dialog and WebKit resolved to nothing — the dialog opened, the
+   against the dialog and WebKit resolved to nothing, the dialog opened, the
    backdrop blurred, and the content collapsed to an invisible strip. The form
    still submits; display:contents removes the box, not the element. */
 #feedback[open] > form { display: contents; }

@@ -133,7 +133,7 @@
     // ---- feedback ----------------------------------------------------------
     // Posts straight to Supabase. The key below is the project's *publishable*
     // key and is meant to be public: the table's row-level security lets it
-    // insert and nothing else, so it cannot read back a single row — not even
+    // insert and nothing else, so it cannot read back a single row: not even
     // the one it just wrote. Reading is an admin's job.
     var FEEDBACK = {
         url: 'https://fcyhiujhvafozihopxsu.supabase.co/rest/v1/feedback',
@@ -193,7 +193,7 @@
                 })
             }).then(function (r) {
                 if (!r.ok) throw new Error(r.status);
-                status.textContent = 'Sent — thank you. I read all of these.';
+                status.textContent = 'Sent, thank you. I read all of these.';
                 status.className = 'fb-status ok';
                 message.value = ''; contact.value = ''; count();
                 send.textContent = 'Sent';
@@ -223,7 +223,7 @@
     }
 
     // A sheet is N frames in one row. The frame's shape is only known once the
-    // image loads, so the box is sized from the real proportions — a pack drawn
+    // image loads, so the box is sized from the real proportions, a pack drawn
     // on a taller canvas than the capybara still fits its slot.
     function styleSprite(s, pack, width) {
         var frames = Math.max(1, parseInt(pack.previewFrames, 10) || 1);
