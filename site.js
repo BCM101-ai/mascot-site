@@ -130,6 +130,82 @@
         });
     }
 
+    // ---- feedback ----------------------------------------------------------
+    // Posts straight to Supabase. The key below is the project's *publishable*
+    // key and is meant to be public: the table's row-level security lets it
+    // insert and nothing else, so it cannot read back a single row — not even
+    // the one it just wrote. Reading is an admin's job.
+    var FEEDBACK = {
+        url: 'https://fcyhiujhvafozihopxsu.supabase.co/rest/v1/feedback',
+        key: 'sb_publishable_aFjZ_fZNIkUy8U5dzhJZxA_m6hnp8ov'
+    };
+    var fb = document.getElementById('feedback');
+    if (fb) {
+        var form = document.getElementById('fb-form');
+        var message = document.getElementById('fb-message');
+        var contact = document.getElementById('fb-contact');
+        var trap = document.getElementById('fb-website');
+        var status = document.getElementById('fb-status');
+        var left = document.getElementById('fb-left');
+        var send = document.getElementById('fb-send');
+
+        function count() { left.textContent = 4000 - message.value.length; }
+        message.addEventListener('input', count); count();
+
+        function open_() {
+            status.textContent = ''; status.className = 'fb-status';
+            send.disabled = false; send.textContent = 'Send';
+            if (typeof fb.showModal === 'function') fb.showModal();
+            else fb.setAttribute('open', '');
+            message.focus();
+        }
+        document.querySelectorAll('[data-feedback]').forEach(function (b) {
+            b.addEventListener('click', open_);
+        });
+        document.getElementById('fb-close').addEventListener('click', function () { fb.close(); });
+        fb.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') { e.preventDefault(); fb.close(); }
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var text = message.value.trim();
+            if (!text) { message.focus(); return; }
+            // Anything in the honeypot is a bot. Say "thanks" and send nothing,
+            // so it has no signal to learn from.
+            if (trap.value) { fb.close(); return; }
+
+            send.disabled = true; send.textContent = 'Sending…';
+            status.textContent = ''; status.className = 'fb-status';
+
+            fetch(FEEDBACK.url, {
+                method: 'POST',
+                headers: {
+                    'apikey': FEEDBACK.key,
+                    'Authorization': 'Bearer ' + FEEDBACK.key,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify({
+                    message: text,
+                    contact: contact.value.trim() || null,
+                    source: 'website'
+                })
+            }).then(function (r) {
+                if (!r.ok) throw new Error(r.status);
+                status.textContent = 'Sent — thank you. I read all of these.';
+                status.className = 'fb-status ok';
+                message.value = ''; contact.value = ''; count();
+                send.textContent = 'Sent';
+                setTimeout(function () { fb.close(); }, 1600);
+            }).catch(function () {
+                status.textContent = 'That did not send. Email me instead: Thanachot10072550@gmail.com';
+                status.className = 'fb-status err';
+                send.disabled = false; send.textContent = 'Try again';
+            });
+        });
+    }
+
     // ---- 3. packs ----------------------------------------------------------
     // The catalogue is the file the app's store reads, served from this site.
     // When previewing on localhost there is no packs/ folder, so read the live one;

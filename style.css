@@ -777,3 +777,42 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
     .coursework-heading, .coursework-body { padding:18px 16px; }
     .coursework-footer { padding:12px 16px; font-size:.75rem; }
 }
+
+/* ---------- feedback ----------
+   The same dialog shape as a pack's page, so there is one modal idiom. */
+.linkish {
+    font: inherit; color: inherit; background: none; border: 0; padding: 0;
+    cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+}
+.fb-label {
+    display: block;
+    font-family: var(--display);
+    font-size: 1rem;
+    margin: 0 0 8px;
+}
+.fb-label + .fb-label, .fb-count + .fb-label { margin-top: 20px; }
+.fb-label span { font-family: var(--body); font-size: 0.85rem; color: var(--ink-muted); }
+#feedback textarea, #feedback input[type=text] {
+    width: 100%;
+    font: inherit;
+    color: var(--ink);
+    background: #fffdf8;
+    border: 1px solid var(--cream-line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    resize: vertical;
+}
+#feedback textarea:focus, #feedback input[type=text]:focus {
+    outline: 3px solid var(--brand-2); outline-offset: 2px; border-color: transparent;
+}
+.fb-count { margin: 6px 0 0; font-size: 0.8rem; color: var(--ink-muted); text-align: right; }
+.fb-note { margin: 18px 0 0; font-size: 0.85rem; color: var(--ink-muted); }
+.fb-status { margin: 12px 0 0; font-size: 0.9rem; min-height: 1.2em; }
+.fb-status.err { color: #a3341c; }
+.fb-status.ok  { color: #2f7a3f; }
+/* Off-screen rather than display:none — a bot reading the DOM still finds it,
+   which is the entire point, while nobody using the page ever meets it. */
+.fb-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+/* The feedback dialog wraps its sections in a <form>, so the column layout
+   that keeps the actions bar in view has to live on the form as well. */
+#feedback[open] > form { display: flex; flex-direction: column; max-height: inherit; height: 100%; }
