@@ -645,7 +645,7 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
 .chip--due { --x:6%; --y:46%; --r:2deg; --t:10s; --d:-1s; }
 .chip--connected { --x:79%; --y:43%; --r:-3deg; --t:8s; --d:-4s; }
 .chip--quick { --x:0%; --y:89%; --r:3deg; --t:12s; --d:-7s; }
-.chip--handin { --x:56%; --y:89%; --r:2deg; --t:9s; --d:-3s; }
+.chip--handin { --x:68%; --y:89%; --r:2deg; --t:9s; --d:-3s; }
 .home .moods { background:radial-gradient(ellipse at 0 0,#efdfc8,transparent 65%),linear-gradient(130deg,#dfc3a1,#cda477 60%,#d8bb96); color:#352415; --card:#fff7eb8c; --line:#6646272e; --muted:#513b29; }
 .home .band--dark { background:radial-gradient(ellipse at 0 0,#33231550,transparent 65%),linear-gradient(140deg,#15130e,#0f1210); }
 .home #packs-section { background:radial-gradient(ellipse at 100% 25%,#d8cfaa77,transparent 60%),#eae4d6; }
