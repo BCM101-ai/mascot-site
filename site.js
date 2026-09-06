@@ -63,6 +63,30 @@
             if (!realDemo.open) realDemo.querySelector('video').pause();
         });
     }
+    // The sign-in guide also works without JS. Enhancement: focus one step at a time.
+    var guideSteps = document.querySelectorAll('.guide-step');
+    guideSteps.forEach(function (step) {
+        step.addEventListener('toggle', function () {
+            if (!step.open) step.querySelector('video').pause();
+            else guideSteps.forEach(function (other) { if (other !== step) other.open = false; });
+        });
+        var next = step.querySelector('[data-next-step]');
+        if (next) {
+            next.hidden = false;
+            next.addEventListener('click', function () {
+                var target = document.getElementById('classroom-step-' + next.dataset.nextStep);
+                step.open = false;
+                target.open = true;
+                target.querySelector('summary').focus({ preventScroll: true });
+                target.scrollIntoView({ block: 'start', behavior: 'auto' });
+            });
+        }
+    });
+    document.querySelectorAll('video').forEach(function (video) {
+        video.addEventListener('play', function () {
+            document.querySelectorAll('video').forEach(function (other) { if (other !== video) other.pause(); });
+        });
+    });
     document.addEventListener('visibilitychange', function () {
         document.documentElement.classList.toggle('page-hidden', document.hidden);
     });

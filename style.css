@@ -886,3 +886,59 @@ body.doc code { overflow-wrap:anywhere; }
     .sheet-actions .btn { white-space:nowrap; flex-shrink:0; padding:12px 18px; }
     .sheet-actions .sheet-note { font-size:.8rem; }
 }
+
+/* A recording-led guide: all instructions remain available without scripts. */
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.classroom-guide { background:radial-gradient(ellipse at 5% 5%,#e8d8ba70,transparent 55%),var(--cream); border-bottom:1px solid var(--cream-line); }
+.guide-layout { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(28px,5vw,70px); align-items:start; }
+.guide-intro { position:sticky; top:110px; }
+.guide-intro h2 { font-size:clamp(2rem,3.6vw,2.8rem); line-height:1.15; }
+.guide-intro .sub { font-size:1rem; line-height:1.7; }
+.guide-meta { display:flex; align-items:center; gap:9px; margin:24px 0; color:var(--ink-muted); font-size:.8rem; }
+.guide-meta-dot { width:8px; height:8px; border-radius:50%; background:#5f8362; flex-shrink:0; }
+.guide-before { padding:22px; border:1px solid var(--cream-line); border-radius:18px; background:#fff7; }
+.guide-before strong { font-size:1rem; }
+.guide-before p { font-size:.95rem; margin:8px 0 14px; }
+.guide-before a { font-size:.875rem; color:#8f4c25; text-underline-offset:4px; }
+.guide-tip { font-size:.875rem; color:var(--ink-muted); margin:18px 0 0; }
+.guide-steps { list-style:none; padding:0; margin:0; display:grid; gap:12px; }
+.guide-step { background:#fffaf3; border:1px solid var(--cream-line); border-radius:18px; overflow:hidden; scroll-margin-top:92px; }
+.guide-step[open] { border-color:#b8845780; box-shadow:0 14px 38px #5940240d; }
+.guide-step summary { display:flex; align-items:center; gap:12px; padding:20px; cursor:pointer; list-style:none; }
+.guide-step summary::-webkit-details-marker { display:none; }
+.guide-step summary:hover { background:#eacda424; }
+.guide-step summary:focus-visible { outline:3px solid #9a5826; outline-offset:-4px; border-radius:16px; }
+.guide-number { display:grid; place-items:center; width:34px; height:34px; flex:none; border-radius:10px; background:#eadcc7; color:#70411f; font:1.15rem var(--display); }
+.guide-step[open] .guide-number { background:#8f4c25; color:#fffaf3; }
+.guide-step-title { font-size:1rem; font-weight:600; line-height:1.4; }
+.guide-duration { font-size:.75rem; color:var(--ink-muted); white-space:nowrap; margin-left:auto; }
+.guide-chevron { font-size:1.4rem; width:18px; text-align:center; flex:none; line-height:1; color:#8f4c25; }
+.guide-step[open] .guide-chevron { transform:rotate(45deg); }
+.guide-content { padding:0 20px 20px; }
+.guide-content > p { font-size:.95rem; line-height:1.7; margin:0 0 18px; }
+.guide-video-wrap { display:flex; justify-content:center; background:#18272c; border:1px solid #22373d; border-radius:12px; overflow:hidden; }
+.guide-video-wrap video { display:block; width:100%; height:auto; max-height:450px; object-fit:contain; }
+.guide-content .guide-note { font-size:.8rem; color:var(--ink-muted); margin:14px 0 20px; }
+.guide-actions { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+.guide-next { font:500 .875rem/1.5 var(--body); color:#fffaf3; background:#8f4c25; padding:11px 16px; border:0; border-radius:100px; cursor:pointer; text-decoration:none; }
+.guide-next:hover { background:#733b1b; }
+.guide-video-link { color:var(--ink-muted); font-size:.8rem; text-underline-offset:4px; padding-block:10px; }
+.guide-help { margin:28px 0 0; text-align:right; color:var(--ink-muted); font-size:.875rem; }
+.guide-help a { color:#8f4c25; text-underline-offset:4px; }
+.setup-link { margin:18px 0 28px; font-size:.95rem; text-underline-offset:4px; }
+#classroom-school-help { scroll-margin-top:110px; }
+@media (max-width:960px) {
+    .guide-layout { grid-template-columns:1fr; }
+    .guide-intro { position:static; max-width:650px; }
+    .guide-video-wrap video { max-height:480px; }
+    .guide-help { text-align:left; }
+}
+@media (max-width:600px) {
+    .guide-step summary { gap:10px; padding:16px 12px; }
+    .guide-content { padding:0 12px 16px; }
+    .guide-number { width:30px; height:30px; }
+    .guide-step-title { font-size:.9rem; }
+    .guide-duration { display:none; }
+    .guide-chevron { margin-left:auto; }
+    .guide-meta { font-size:.75rem; }
+}
