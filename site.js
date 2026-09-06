@@ -202,13 +202,14 @@
         var status = document.getElementById('fb-status');
         var left = document.getElementById('fb-left');
         var send = document.getElementById('fb-send');
+        var sendingFeedback = false;
 
         function count() { left.textContent = 4000 - message.value.length; }
         message.addEventListener('input', count); count();
 
         function open_() {
             status.textContent = ''; status.className = 'fb-status';
-            send.disabled = false; send.textContent = 'Send';
+            send.disabled = sendingFeedback; send.textContent = sendingFeedback ? 'Sending…' : 'Send';
             if (typeof fb.showModal === 'function') fb.showModal();
             else fb.setAttribute('open', '');
             message.focus();
@@ -223,20 +224,31 @@
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
+            if (sendingFeedback) return;
             var text = message.value.trim();
             if (!text) { message.focus(); return; }
+            if (text.length > 4000 || contact.value.trim().length > 200) {
+                status.textContent = 'Please keep the message under 4,000 characters and contact details under 200.';
+                status.className = 'fb-status err';
+                return;
+            }
             // Anything in the honeypot is a bot. Say "thanks" and send nothing,
             // so it has no signal to learn from.
             if (trap.value) { fb.close(); return; }
 
+            sendingFeedback = true;
             send.disabled = true; send.textContent = 'Sending…';
             status.textContent = ''; status.className = 'fb-status';
+            var controller = new AbortController();
+            var timeout = setTimeout(function () { controller.abort(); }, 15000);
 
             fetch(FEEDBACK.url, {
                 method: 'POST',
+                credentials: 'omit',
+                referrerPolicy: 'no-referrer',
+                signal: controller.signal,
                 headers: {
                     'apikey': FEEDBACK.key,
-                    'Authorization': 'Bearer ' + FEEDBACK.key,
                     'Content-Type': 'application/json',
                     'Prefer': 'return=minimal'
                 },
@@ -246,16 +258,21 @@
                     source: 'website'
                 })
             }).then(function (r) {
-                if (!r.ok) throw new Error(r.status);
+                if (!r.ok) { var error = new Error('Feedback failed'); error.status = r.status; throw error; }
                 status.textContent = 'Sent, thank you. I read all of these.';
                 status.className = 'fb-status ok';
                 message.value = ''; contact.value = ''; count();
                 send.textContent = 'Sent';
                 setTimeout(function () { fb.close(); }, 1600);
-            }).catch(function () {
-                status.textContent = 'That did not send. Email me instead: Thanachot10072550@gmail.com';
+            }).catch(function (error) {
+                status.textContent = error.status === 429
+                    ? 'Feedback is busy right now. Please try later, or email Thanachot10072550@gmail.com.'
+                    : 'The send could not be confirmed. Email me instead: Thanachot10072550@gmail.com';
                 status.className = 'fb-status err';
                 send.disabled = false; send.textContent = 'Try again';
+            }).finally(function () {
+                clearTimeout(timeout);
+                sendingFeedback = false;
             });
         });
     }
@@ -280,19 +297,21 @@
     // image loads, so the box is sized from the real proportions, a pack drawn
     // on a taller canvas than the capybara still fits its slot.
     function styleSprite(s, pack, width, onReady, onError) {
-        var frames = Math.max(1, parseInt(pack.previewFrames, 10) || 1);
+        var frames = Number.isInteger(pack.previewFrames) && pack.previewFrames >= 1 && pack.previewFrames <= 60 ? pack.previewFrames : 1;
         s.style.setProperty('--frames', frames);
         s.style.setProperty('--fw', width + 'px');
         if (frames < 2) s.style.animation = 'none';
-        if (!pack.preview) return s;
-        s.style.setProperty('--sheet', 'url("' + pack.preview + '")');
+        var previewURL = safeAssetURL(pack.preview, 'preview');
+        if (!previewURL) return s;
+        s.style.setProperty('--sheet', 'url("' + previewURL + '")');
         var probe = new Image();
         probe.onload = function () {
             s.style.height = Math.round(width * (probe.naturalHeight / (probe.naturalWidth / frames))) + 'px';
             if (onReady) onReady();
         };
         probe.onerror = function () { if (onError) onError(); };
-        probe.src = pack.preview;
+        probe.referrerPolicy = 'no-referrer';
+        probe.src = previewURL;
         return s;
     }
 
@@ -423,8 +442,36 @@
         return c;
     }
 
-    function safeURL(value) {
-        try { return new URL(value).protocol === 'https:'; } catch (_) { return false; }
+    // Catalogue data can select approved assets, never arbitrary hosts or CSS URLs.
+    function safeAssetURL(value, kind) {
+        if (typeof value !== 'string' || value.length > 512 || /[\s\\"'<>%]/.test(value)) return null;
+        var localArt = /^art\/packs\/[a-z0-9_-]+\/[a-z0-9_-]+\.png$/.test(value);
+        try {
+            var url = new URL(value, 'https://studymascot.com/');
+            if (url.origin !== 'https://studymascot.com' || url.username || url.password || url.search || url.hash) return null;
+            if (kind === 'download') {
+                return /^\/packs\/[a-z0-9][a-z0-9._-]*\.mascotpack$/.test(url.pathname) ? url.href : null;
+            }
+            if (kind !== 'preview') return null;
+            if (localArt) return value;
+            return /^\/packs\/[a-z0-9][a-z0-9._-]*\.png$/.test(url.pathname) ? url.href : null;
+        } catch (_) { return null; }
+    }
+    function validatedPack(pack) {
+        if (!pack || typeof pack !== 'object' || Array.isArray(pack)) return null;
+        var download = safeAssetURL(pack.download, 'download');
+        if (!download || typeof pack.id !== 'string' || !/^[a-z0-9][a-z0-9_-]{0,79}$/.test(pack.id)) return null;
+        if (typeof pack.name !== 'string' || !pack.name.trim() || pack.name.length > 120) return null;
+        var price = pack.price == null ? 0 : pack.price;
+        if (typeof price !== 'number' || !Number.isFinite(price) || price < 0 || price > 10000) return null;
+        var result = { id: pack.id, name: pack.name, price: price, download: download,
+            preview: safeAssetURL(pack.preview, 'preview'),
+            previewFrames: Number.isInteger(pack.previewFrames) && pack.previewFrames >= 1 && pack.previewFrames <= 60 ? pack.previewFrames : 1,
+            moods: Array.isArray(pack.moods) ? moodNames.filter(function (m) { return pack.moods.includes(m); }) : [] };
+        ['creator', 'description', 'updated'].forEach(function (field) {
+            result[field] = typeof pack[field] === 'string' ? pack[field].slice(0, field === 'description' ? 2000 : 120) : '';
+        });
+        return result;
     }
     function loadPacks() {
         grid.replaceChildren(el('p', 'packs-note', 'Loading the pack list…'));
@@ -433,11 +480,10 @@
         fetch(CATALOG, { cache: 'no-cache', signal: controller.signal })
             .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
             .then(function (cat) {
-                if (cat.version !== 1 || !Array.isArray(cat.packs)) throw new Error('Unsupported catalogue');
-                var packs = cat.packs.filter(function (p) { return p && safeURL(p.download); });
+                if (!cat || cat.version !== 1 || !Array.isArray(cat.packs) || cat.packs.length > 100) throw new Error('Unsupported catalogue');
+                var packs = cat.packs.map(validatedPack).filter(Boolean);
                 grid.textContent = '';
                 packs.forEach(function (p, i) {
-                    if (p.preview && !safeURL(p.preview)) p = Object.assign({}, p, { preview: null });
                     var n = card(p, i);
                     grid.appendChild(n);
                     n.classList.add('in');
