@@ -4,6 +4,30 @@
     'use strict';
     document.documentElement.classList.add('js');
 
+    // One set of navigation links; compact screens use a disclosure menu.
+    var menuToggle = document.querySelector('.nav-menu-toggle');
+    var menuLinks = document.getElementById('nav-secondary');
+    if (menuToggle && menuLinks) {
+        menuToggle.hidden = false;
+        function closeMenu(restoreFocus) {
+            menuToggle.setAttribute('aria-expanded', 'false');
+            if (restoreFocus) menuToggle.focus();
+        }
+        menuToggle.addEventListener('click', function () {
+            menuToggle.setAttribute('aria-expanded', String(menuToggle.getAttribute('aria-expanded') !== 'true'));
+        });
+        menuLinks.addEventListener('click', function (e) {
+            if (e.target.closest('a, [data-feedback]')) closeMenu(false);
+        });
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.nav')) closeMenu(false);
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') closeMenu(true);
+        });
+        window.matchMedia('(max-width: 960px)').addEventListener('change', function () { closeMenu(false); });
+    }
+
     // ---- 1. reveal ---------------------------------------------------------
     var revealables = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window) {
@@ -33,6 +57,12 @@
     if (motion) motion.addEventListener('click', function () { paused = !paused; updateMotion(); });
     if (reduced.addEventListener) reduced.addEventListener('change', updateMotion);
     updateMotion();
+    var realDemo = document.getElementById('real-demo');
+    if (realDemo) {
+        realDemo.addEventListener('toggle', function () {
+            if (!realDemo.open) realDemo.querySelector('video').pause();
+        });
+    }
     document.addEventListener('visibilitychange', function () {
         document.documentElement.classList.toggle('page-hidden', document.hidden);
     });
@@ -225,7 +255,7 @@
     // A sheet is N frames in one row. The frame's shape is only known once the
     // image loads, so the box is sized from the real proportions, a pack drawn
     // on a taller canvas than the capybara still fits its slot.
-    function styleSprite(s, pack, width) {
+    function styleSprite(s, pack, width, onReady, onError) {
         var frames = Math.max(1, parseInt(pack.previewFrames, 10) || 1);
         s.style.setProperty('--frames', frames);
         s.style.setProperty('--fw', width + 'px');
@@ -235,7 +265,9 @@
         var probe = new Image();
         probe.onload = function () {
             s.style.height = Math.round(width * (probe.naturalHeight / (probe.naturalWidth / frames))) + 'px';
+            if (onReady) onReady();
         };
+        probe.onerror = function () { if (onError) onError(); };
         probe.src = pack.preview;
         return s;
     }
@@ -258,6 +290,32 @@
     // ---- the pack page, mirroring the app's detail sheet -------------------
     var sheet = document.getElementById('pack-detail');
     var sheetArt = document.getElementById('sheet-art');
+    var packMoodControls = document.getElementById('pack-mood-controls');
+    var packPreviewStatus = document.getElementById('sheet-preview-status');
+    var previewRequest = 0;
+    var moodNames = ['calm', 'attentive', 'worried', 'urgent', 'overdue'];
+    function showPackMood(pack, mood) {
+        var library = (window.MASCOT_PACK_PREVIEWS || {})[pack.id] || {};
+        var art = library[mood] || pack;
+        var request = ++previewRequest;
+        var title = mood[0].toUpperCase() + mood.slice(1);
+        packPreviewStatus.textContent = 'Loading ' + title.toLowerCase() + '…';
+        var next = el('div', 'sprite');
+        next.id = 'sheet-art';
+        next.setAttribute('aria-hidden', 'true');
+        if (art.width && art.height) next.style.height = (200 * art.height / art.width) + 'px';
+        sheetArt.replaceWith(styleSprite(next, art, 200, function () {
+            if (request === previewRequest) packPreviewStatus.textContent = title + (library[mood] ? ' · From this pack' : ' preview');
+        }, function () {
+            if (request !== previewRequest) return;
+            next.style.backgroundImage = 'none';
+            packPreviewStatus.textContent = 'This preview couldn’t load. Choose another mood or reopen the pack to retry.';
+        }));
+        sheetArt = next;
+        packMoodControls.querySelectorAll('button').forEach(function (b) {
+            b.setAttribute('aria-pressed', String(b.dataset.packMood === mood));
+        });
+    }
 
     function openSheet(pack) {
         document.getElementById('sheet-name').textContent = pack.name || pack.id;
@@ -265,8 +323,19 @@
         by.textContent = pack.creator ? 'by ' + pack.creator : '';
         by.hidden = !pack.creator;
 
-        sheetArt.replaceWith(styleSprite(sheetArt.cloneNode(false), pack, 200));
-        sheetArt = document.getElementById('sheet-art');
+        packMoodControls.replaceChildren();
+        var library = (window.MASCOT_PACK_PREVIEWS || {})[pack.id] || {};
+        moodNames.forEach(function (mood) {
+            if (!library[mood]) return;
+            var b = el('button', 'pack-mood-button', mood[0].toUpperCase() + mood.slice(1));
+            b.type = 'button';
+            b.dataset.packMood = mood;
+            b.setAttribute('aria-pressed', 'false');
+            b.addEventListener('click', function () { showPackMood(pack, mood); });
+            packMoodControls.appendChild(b);
+        });
+        packMoodControls.hidden = !packMoodControls.childElementCount;
+        showPackMood(pack, 'calm');
 
         document.getElementById('sheet-moods').textContent = completeness(pack);
         document.getElementById('sheet-price').textContent = priceLabel(pack);

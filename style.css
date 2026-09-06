@@ -827,3 +827,62 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
    backdrop blurred, and the content collapsed to an invisible strip. The form
    still submits; display:contents removes the box, not the element. */
 #feedback[open] > form { display: contents; }
+
+/* Navigation keeps Download visible; secondary controls share one mobile menu. */
+.nav-logo, .nav-download { flex-shrink:0; }
+.nav-menu-toggle { display:none; font:500 .875rem var(--body); padding:10px 12px; border:1px solid var(--cream-line); border-radius:100px; background:transparent; color:var(--ink); cursor:pointer; }
+.nav-download { text-decoration:none; }
+.hero-compatibility { font-size:.875rem; color:var(--ink-muted); margin:14px auto 0; }
+.pack-mood-controls { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin-top:14px; }
+.pack-mood-button { font:500 .875rem var(--body); padding:10px 11px; border:1px solid var(--cream-line); border-radius:100px; color:var(--ink-muted); background:transparent; cursor:pointer; }
+.pack-mood-button[aria-pressed=true] { background:#263b42; border-color:#263b42; color:white; }
+.pack-mood-button:hover { box-shadow:0 3px 10px #14252a20; }
+.sheet-hint { text-align:center; min-height:1.6em; }
+.release-details { display:flex; flex-wrap:wrap; gap:6px 18px; list-style:none; margin:20px 0 8px; padding:0; color:var(--paper-muted); font-size:.9rem; }
+.release-details strong { color:var(--paper); }
+.release-note { font-size:.9rem; }
+.install-help { margin:18px 0 0; font-size:.875rem; }
+body.doc { overflow-wrap:anywhere; }
+body.doc table { table-layout:fixed; }
+body.doc td:first-child { white-space:normal; }
+body.doc code { overflow-wrap:anywhere; }
+@media (max-width:960px) {
+    .nav .wrap { position:relative; gap:12px; }
+    html.js .nav-menu-toggle { display:block; margin-left:auto; }
+    html.js .nav-links { display:none; position:absolute; left:20px; right:20px; top:calc(100% + 8px); margin:0; padding:12px; background:var(--cream-2); border:1px solid var(--cream-line); border-radius:18px; box-shadow:0 15px 35px #281a1326; align-items:stretch; flex-direction:column; gap:4px; }
+    html.js .nav-menu-toggle[aria-expanded=true] + .nav-links { display:flex; }
+    .nav-links a:not(.btn) { display:block; }
+    html.js .nav-links > a, html.js .nav-links > button { padding:12px 14px; min-height:44px; text-align:left; font-size:1rem; border-radius:10px; }
+    html.js .nav-links > a::after { display:none; }
+    html.js .nav-links > a:hover { background:#e3d6c580; }
+    html:not(.js) .nav .wrap { height:auto; flex-wrap:wrap; padding-block:12px; }
+    html:not(.js) .nav-links { order:3; flex-wrap:wrap; margin:0; }
+}
+@media (max-width:380px) {
+    .nav .wrap { gap:8px; }
+    .nav-menu-toggle { padding:8px 10px; }
+    .nav .nav-download { font-size:.875rem; }
+    .pack-mood-button { padding:9px 10px; }
+}
+.real-demo { margin:24px auto 0; border:1px solid var(--cream-line); border-radius:18px; background:#fff5; overflow:hidden; }
+.real-demo summary { cursor:pointer; padding:18px 22px; font-size:.95rem; font-weight:500; list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+.real-demo summary::-webkit-details-marker { display:none; }
+.real-demo summary:hover { background:#ffffff60; }
+.real-demo summary:focus-visible { outline:3px solid #9a5826; outline-offset:-4px; }
+.play-mark { color:var(--brand-2); font-size:.875rem; }
+.demo-length { color:var(--ink-muted); font-size:.875rem; margin-left:auto; font-weight:400; }
+.real-demo-content { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,360px); align-items:center; gap:28px; padding:0 24px 24px; }
+.real-demo-content h3 { margin-bottom:14px; font-size:1.75rem; }
+.real-demo-content p { font-size:1rem; }
+.real-demo-content .demo-note { color:var(--ink-muted); font-size:.875rem; }
+.real-demo video { display:block; width:100%; height:auto; max-height:560px; border-radius:12px; background:#13242c; }
+@media (max-width:600px) {
+    .real-demo-content { grid-template-columns:1fr; gap:8px; padding:0 16px 16px; }
+    .real-demo summary { padding:16px; }
+    .real-demo video { max-height:480px; }
+}
+@media (max-width:600px) {
+    .sheet-actions { gap:12px; }
+    .sheet-actions .btn { white-space:nowrap; flex-shrink:0; padding:12px 18px; }
+    .sheet-actions .sheet-note { font-size:.8rem; }
+}

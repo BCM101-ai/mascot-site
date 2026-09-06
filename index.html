@@ -10,7 +10,7 @@
 <meta property="og:image" content="https://studymascot.com/img/favicon.png">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/favicon.png">
-<link rel="stylesheet" href="style.css?v=20260906g">
+<link rel="stylesheet" href="style.css?v=20260906-polish1">
 </head>
 <body class="home">
 <a class="skip-link" href="#preview">Skip to the interactive preview</a>
@@ -18,14 +18,15 @@
 <nav class="nav" aria-label="Main navigation">
     <div class="wrap">
         <a class="nav-logo" href="#top"><span class="sprite expressive sprite--calm" aria-hidden="true"></span>Mascot</a>
-        <div class="nav-links">
+        <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="nav-secondary" hidden>Menu <span aria-hidden="true">☰</span></button>
+        <div class="nav-links" id="nav-secondary">
             <a href="#how">What it does</a>
             <a href="#packs-section">Mascots</a>
             <a href="#questions">Questions</a>
             <button class="motion-toggle" type="button" aria-pressed="false">Pause motion</button>
             <button class="motion-toggle" type="button" data-feedback>Feedback</button>
-            <a class="btn" href="#download">Download</a>
         </div>
+        <a class="btn nav-download" href="#download">Download</a>
     </div>
 </nav>
 
@@ -38,7 +39,7 @@
             <span class="chip chip--due" aria-hidden="true"><i class="dot dot--due"></i>Due today · 10:00 PM</span>
             <span class="chip chip--connected" aria-hidden="true"><i class="dot"></i>Classroom connected</span>
             <span class="chip chip--quick" aria-hidden="true"><kbd>⇧Space</kbd> essay friday 5pm</span>
-            <span class="chip chip--handin" aria-hidden="true"><i class="dot"></i>Mascot Test Hand-in · Thu 10 Sep</span>
+            <span class="chip chip--handin" aria-hidden="true"><i class="dot"></i>Design essay · Thu 10 Sep</span>
 
             <p class="kicker">For macOS · Google Classroom · Free</p>
             <h1><span>A study <span class="hl">buddy</span></span><span>that lives on</span><span>your Mac.</span></h1>
@@ -50,6 +51,7 @@
                 <a class="btn" href="#download">Download for macOS</a>
                 <a class="btn-ghost" href="#preview">See how it works</a>
             </div>
+            <p class="hero-compatibility">Free · macOS 14+ · Apple silicon</p>
         </div>
 
         <div id="preview" class="desktop-demo">
@@ -96,6 +98,21 @@
                 </div>
             </div>
             <p class="preview-caption">Interactive preview · Expressive capybara <span>Click a mood above, or tap your buddy.</span></p>
+            <details class="real-demo" id="real-demo">
+                <summary><span class="play-mark" aria-hidden="true">▶</span> Watch it on a real Mac <span class="demo-length">20 seconds</span></summary>
+                <div class="real-demo-content">
+                    <div>
+                        <h3>From due to done.</h3>
+                        <p>See coursework appear beside the Dock, then see completed assignments crossed out after they’re marked done in Classroom.</p>
+                        <p class="demo-note">Two short excerpts from a real recording, cropped to the app. No sound; captions explain each step.</p>
+                    </div>
+                    <video controls playsinline preload="none" poster="media/mascot-demo-poster.jpg" width="768" height="912" aria-label="Mascot showing pending and completed coursework on a real Mac">
+                        <source src="media/mascot-demo.mp4" type="video/mp4">
+                        <track kind="captions" src="media/mascot-demo.vtt" srclang="en" label="English" default>
+                        <p><a href="media/mascot-demo.mp4">Watch the 20-second recording</a>.</p>
+                    </video>
+                </div>
+            </details>
         </div>
     </div>
 </header>
@@ -180,12 +197,12 @@
             <article id="privacy" class="card tile tile--tall reveal" style="--i:1">
                 <h3>Stays on your Mac</h3>
                 <p>
-                    Your coursework never leaves your Mac. When Mascot does reach the internet
-                    it is fetching mascot packs, never sending your work.
+                    Mascot reads your connected sources on your Mac. Your coursework and deadlines
+                    are never uploaded to Mascot’s servers. Google sign-in is only needed for Classroom.
                 </p>
                 <ul class="tile-list">
                     <li>No analytics, no tracking</li>
-                    <li>No account needed</li>
+                    <li>No Mascot account needed for deadlines</li>
                     <li>Works signed out, always will</li>
                     <li>Read‑only access to Classroom</li>
                 </ul>
@@ -210,11 +227,12 @@
             </article>
 
             <article class="card tile tile--half reveal" style="--i:4">
-                <h3>Your phone too</h3>
+                <h3>Your iPhone, through Reminders</h3>
                 <p>
-                    Add a deadline on your phone and it shows up on your Mac. Tick it off there
-                    and Mascot goes quiet. Useful for coursework that never made it to Classroom:
-                    Teams assignments, group projects, things a lecturer only said out loud.
+                    Add a dated reminder on your iPhone in an iCloud Reminders list. With the same
+                    Apple Account and Reminders sync enabled on both devices, it reaches your Mac.
+                    Connect that list in Mascot and it can remind you. Complete it on your phone
+                    and Mascot quiets down after the change syncs.
                 </p>
             </article>
 
@@ -257,8 +275,9 @@
             <div class="sheet-body">
                 <div class="sheet-stage">
                     <div class="sprite" id="sheet-art" aria-hidden="true"></div>
-                    <p class="sheet-hint">Install it to see every mood.</p>
+                    <p class="sheet-hint" id="sheet-preview-status" role="status" aria-live="polite">Choose a mood to preview.</p>
                 </div>
+                <div class="pack-mood-controls" id="pack-mood-controls" role="group" aria-label="Preview pack moods"></div>
                 <p class="sheet-facts">
                     <span id="sheet-moods"></span>
                     <span class="dotsep">·</span>
@@ -318,21 +337,29 @@
         <div class="reveal">
             <p class="kicker">Download</p>
             <h2>Get Mascot for your Mac.</h2>
-            <p class="muted">Requires macOS 14 or later. It is free.</p>
-            <p style="margin-top:26px"><a class="btn" href="https://github.com/BCM101-ai/mascot-site/releases/latest/download/Mascot.zip">Download Mascot</a></p>
+            <p class="muted">Free for Apple silicon Macs (M1 or later), running macOS 14 or newer.</p>
+            <ul class="release-details" aria-label="Current release">
+                <li><strong>Version 1.2</strong></li>
+                <li>Released <time datetime="2026-09-05">5 September 2026</time></li>
+                <li>2.1 MB ZIP</li>
+            </ul>
+            <p class="release-note"><a href="https://github.com/BCM101-ai/mascot-site/releases/tag/v1.2">What’s new in 1.2 →</a></p>
+            <p style="margin-top:26px"><a class="btn" href="https://github.com/BCM101-ai/mascot-site/releases/download/v1.2/Mascot.zip">Download Mascot</a></p>
             <p class="req">Unzip, drag <strong>Mascot</strong> to Applications, open it. The capybara appears by your Dock.</p>
         </div>
         <div class="card gatekeeper reveal" style="--i:1">
             <h3>The first time you open it</h3>
             <p class="muted">
-                macOS will say it can't verify the app: that means it isn't notarised by Apple
-                yet, not that anything is wrong.
+                This release is not notarized by Apple. macOS may block the first launch
+                because it cannot verify the developer. If you choose to open this download,
+                follow Apple’s steps below.
             </p>
             <div class="steps">
-                <div><span class="n">1</span><span>Open <strong>System Settings → Privacy &amp; Security</strong>.</span></div>
-                <div><span class="n">2</span><span>Click <strong>Open Anyway</strong>.</span></div>
-                <div><span class="n">3</span><span>Once only. After that it opens like anything else.</span></div>
+                <div><span class="n">1</span><span>Move Mascot to Applications and try opening it once.</span></div>
+                <div><span class="n">2</span><span>Open <strong>System Settings → Privacy &amp; Security</strong> and find the message about Mascot.</span></div>
+                <div><span class="n">3</span><span>Choose <strong>Open Anyway</strong> and confirm. This creates an exception for Mascot.</span></div>
             </div>
+            <p class="install-help"><a href="https://support.apple.com/en-us/102445">Apple’s guide to opening downloaded apps →</a></p>
         </div>
     </div>
 </section>
@@ -343,6 +370,18 @@
         <p class="kicker reveal">Questions</p>
         <h2 class="reveal" style="--i:1">The ones people ask.</h2>
         <div class="faq">
+            <article class="card reveal">
+                <h3>Do I need to sign in?</h3>
+                <p>No Mascot account is needed for deadlines or installing packs. Connect your Google account only for Classroom. Calendar and Reminders use macOS permissions; an iCloud account is needed if you want Apple to sync them between devices.</p>
+            </article>
+            <article class="card reveal">
+                <h3>How do I connect my iPhone?</h3>
+                <p>Enable iCloud Reminders with the same Apple Account on your iPhone and Mac. Right-click the mascot, choose Connect Calendar &amp; Reminders, then select your Reminders List. Add a due date to each reminder. Apple handles the sync; Mascot reads the list on your Mac.</p>
+            </article>
+            <article class="card reveal">
+                <h3>Will it run on my Mac?</h3>
+                <p>Version 1.2 is for Apple silicon (M1 or later) and macOS 14+. Check Apple menu → About This Mac for your chip and macOS version. This download does not include an Intel build.</p>
+            </article>
             <article class="card reveal" style="--i:0">
                 <h3>Does it work with Microsoft Teams?</h3>
                 <p>
@@ -382,7 +421,7 @@
             <div class="card reveal">
                 <h3>Get Mascot</h3>
                 <p>A capybara for your Dock that knows when your coursework is due. Free, for macOS 14 and later.</p>
-                <a class="btn" href="https://github.com/BCM101-ai/mascot-site/releases/latest/download/Mascot.zip">Download</a>
+                <a class="btn" href="https://github.com/BCM101-ai/mascot-site/releases/download/v1.2/Mascot.zip">Download</a>
             </div>
             <div class="card reveal" style="--i:1">
                 <h3>Say hi</h3>
@@ -457,7 +496,7 @@
             <div class="sheet-head">
                 <div>
                     <h3 id="fb-title">Tell me what you think</h3>
-                    <p class="sheet-by">Bugs, ideas, or just how it is going. It reaches me and nobody else.</p>
+                    <p class="sheet-by">Bugs, ideas, or just how it is going. I read every message.</p>
                 </div>
                 <button class="sheet-x" type="button" id="fb-close" aria-label="Close">&times;</button>
             </div>
@@ -478,8 +517,8 @@
                 </div>
 
                 <p class="fb-note">
-                    Only what you type here is sent. No analytics, no page tracking, nothing about
-                    your Mac, the same as the rest of Mascot.
+                    Your message and optional contact details are stored with Supabase so I can read them.
+                    The form sends no coursework or app diagnostics. <a href="privacy.html#website-feedback">How feedback is handled</a>.
                 </p>
                 <p class="fb-status" id="fb-status" role="status" aria-live="polite"></p>
             </div>
@@ -491,6 +530,7 @@
     </dialog>
 </footer>
 
-<script src="site.js?v=20260906g" defer></script>
+<script src="pack-previews.js?v=20260906-polish1" defer></script>
+<script src="site.js?v=20260906-polish1" defer></script>
 </body>
 </html>

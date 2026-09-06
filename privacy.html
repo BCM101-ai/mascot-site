@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy · Mascot</title>
-<meta name="description" content="How Mascot for macOS handles your data. Short version: it stays on your Mac.">
+<meta name="description" content="How Mascot for macOS handles your data. How local deadlines, Google Classroom, iCloud sync and optional feedback are handled.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="doc">
@@ -12,18 +12,19 @@
 
 <header style="padding-bottom:24px">
     <h1>Privacy Policy</h1>
-    <p class="lede">Mascot for macOS · Last updated 29 August 2026</p>
+    <p class="lede">Mascot for macOS · Last updated 6 September 2026</p>
 </header>
 
 <h2>The short version</h2>
 
 <p class="note">
-    Your coursework is read on your Mac, stored on your Mac, and never sent to me or
-    to anyone else. There is no analytics and no tracking of any kind.
-    Two parts of Mascot use the internet, and neither touches your coursework: the
-    mascot store, which downloads a list of packs when you open it, and an optional
-    account, which exists only so that someone who draws a mascot can publish it.
-    You never need an account to use Mascot.
+    Mascot processes your coursework and deadlines on your Mac and does not upload them
+    to Mascot’s servers. Connecting Classroom sends requests directly to Google. Apple
+    Calendar and Reminders may already sync through iCloud or another account you chose;
+    Mascot reads their local copies. Typed deadlines stay in Mascot’s local files.
+    You do not need a Mascot account for deadlines or installing packs. Optional creator
+    accounts, pack submissions and website feedback send only the information needed for
+    those features. There is no analytics or usage tracking.
 </p>
 
 <h2>Who I am</h2>
@@ -102,9 +103,9 @@
 <h2>Where your data is stored</h2>
 
 <p>
-    On your Mac, apart from two things, and both only if you choose to publish a
-    mascot pack: the email address for your account, and any pack you submit. Nothing
-    to do with your coursework is among them.
+    Mascot’s deadline data is handled locally as described below. Google and your calendar
+    or reminders provider keep the data you already store with them. Creator accounts,
+    pack submissions and messages you choose to send are stored separately for those features.
 </p>
 
 <table>
@@ -154,8 +155,8 @@
 <h2>What leaves your Mac</h2>
 
 <p>
-    Mascot connects to three places, and only for the reasons below. Everything else
-    stays on your Mac.
+    Mascot uses the connections below for the features you choose to enable.
+    The website also accepts optional feedback, described separately below.
 </p>
 
 <h3>Google, when you connect Classroom</h3>
@@ -211,8 +212,8 @@
 </p>
 
 <p>
-    Your coursework is <em>not</em> part of this. It is never sent to the account
-    server, or anywhere else, whether you have an account or not.
+    Your coursework is <em>not</em> sent to the account server, whether you have
+    a Mascot account or not. Classroom requests go directly to Google.
 </p>
 
 <p>
@@ -249,8 +250,34 @@
 <h3>What I still do not receive</h3>
 
 <p>
-    Your coursework, your calendar, your deadlines, or any record of how you use the
-    app, with or without an account. There is nowhere on my side for any of it to go.
+    Mascot does not automatically send me your coursework, calendar, deadlines,
+    app diagnostics or usage history. If you include personal details in a feedback
+    message or email, I receive the details you choose to send.
+</p>
+
+<h3 id="phone-sync">Phone sync through Apple Calendar and Reminders</h3>
+<p>
+    For an iPhone reminder to appear on your Mac, enable iCloud Reminders on both devices
+    using the same Apple Account. Then connect the relevant Reminders list in Mascot and
+    give the reminder a due date. Apple handles the sync; Mascot reads the list on your Mac
+    after the update arrives. It does not send reminders through a separate Mascot sync server.
+    A Calendar or Reminders account from another provider follows that provider’s sync settings.
+    Deadlines typed into Mascot’s quick-add box are local and do not sync to your phone.
+</p>
+<p><a href="https://support.apple.com/en-ie/guide/icloud/mmbf52194b5a/icloud">Apple’s guide to setting up iCloud Reminders</a></p>
+
+<h3 id="website-feedback">Website feedback</h3>
+<p>
+    Sending the feedback form uploads the message you type, optional contact details,
+    and a “website” source label to Supabase, which hosts the feedback database for Mascot.
+    The form does not attach coursework, app diagnostics or a device profile. The service
+    receives ordinary network request information, such as an IP address, to handle the request.
+    I use feedback to understand problems, consider suggestions and reply if you provide contact details.
+</p>
+<p>
+    Messages are not published in a public feed. Please include only information you want
+    to share with me. To request deletion, email me with enough detail to identify the message;
+    anonymous messages may be harder to identify. Sending feedback is optional and does not require an account.
 </p>
 
 <h2>What I do not do</h2>
@@ -258,7 +285,7 @@
 <ul>
     <li>No analytics, crash reporting, or usage tracking.</li>
     <li>No advertising, and no advertising identifiers.</li>
-    <li>No selling or sharing of data. There is no data on my side to sell.</li>
+    <li>No selling data or sharing it for advertising. Service providers handle the optional features described here.</li>
     <li>No use of your data to train machine-learning models.</li>
     <li>No third-party SDKs.</li>
 </ul>
@@ -285,13 +312,13 @@
     page</a>.
 </p>
 
-<h3>Deleting everything</h3>
+<h3>Deleting local data, an account or feedback</h3>
 <p>
-    Delete the Mascot app and remove its folder from
-    <code>~/Library/Application Support/Mascot</code>. That is everything held on your
-    Mac. If you never made an account, that is genuinely all of it: there is nothing
-    on my side to close and nothing to request from me. If you did make one, write to
-    me and I will delete it and everything held for it.
+    Sign out of Classroom and your Mascot account before uninstalling to remove their
+    saved sign-in tokens. Delete the app and its <code>~/Library/Application Support/Mascot</code>
+    folder to remove installed packs and typed deadlines. macOS preferences are stored separately;
+    Calendar, Reminders and Google data remain with their respective apps and providers.
+    Contact me to request deletion of a creator account, submitted pack or feedback message.
 </p>
 
 <h3>Permissions</h3>
