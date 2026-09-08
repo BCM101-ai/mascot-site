@@ -2,11 +2,17 @@
   "id": "sleepy-cat-v1",
   "name": "Sleepy Cat",
   "creator": "Thanachot Ananritkul",
-  "description": "A little tabby for your Dock. Slow blinks turn into curious glances, sideways ears and a nervous tail as deadlines approach. Five expressive moods, including the corrected sweat drop.",
-  "moods": ["calm", "attentive", "worried", "urgent", "overdue"],
+  "description": "A little tabby for your Dock. Slow blinks turn into curious glances, sideways ears and a nervous tail as deadlines approach. Outlined so it reads against any wallpaper.",
+  "moods": [
+    "calm",
+    "attentive",
+    "worried",
+    "urgent",
+    "overdue"
+  ],
   "price": 0,
   "download": "https://studymascot.com/packs/sleepy-cat-v1.mascotpack",
   "preview": "https://studymascot.com/packs/sleepy-cat-v1-preview.png",
   "previewFrames": 16,
-  "updated": "7 Sep 2026"
+  "updated": "8 Sep 2026"
 }
