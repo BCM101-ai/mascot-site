@@ -2,5 +2,13 @@
   "version": "0.3.0",
   "released": "2026-09-10",
   "url": "https://studymascot.com/#download",
-  "summary": "An early preview: opens at login, says when nothing is connected yet, and asks before sending a crash report."
+  "summary": "An early preview: opens at login, says when nothing is connected yet, and asks before sending a crash report.",
+  "highlights": [
+    "Opens when you log in, so a restart no longer ends Mascot.",
+    "A new install says “Nothing connected yet” instead of “All clear”.",
+    "Choose your own shortcut for adding a deadline.",
+    "Hold a mood from My Mascots, and choose how big your mascot is.",
+    "Tells you when an update is out, and asks before sending a crash report.",
+    "Explains when your school is the one blocking Classroom."
+  ]
 }

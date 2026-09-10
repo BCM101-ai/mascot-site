@@ -41,6 +41,25 @@
                 if (!data) return;
                 if (/^[0-9]+(\.[0-9]+){0,2}$/.test(String(data.version))) {
                     versionSlots.forEach(function (el) { el.textContent = 'Version ' + data.version; });
+                    document.querySelectorAll('[data-version-number]').forEach(function (el) {
+                        el.textContent = data.version;
+                    });
+                }
+                // The release's highlights, from the same file as its number, so
+                // "what's new" cannot describe a different version than the one
+                // offered. Plain text only: nothing in the file becomes markup.
+                var list = document.querySelector('[data-highlights]');
+                if (list && Array.isArray(data.highlights) && data.highlights.length) {
+                    var lines = data.highlights
+                        .filter(function (line) { return typeof line === 'string' && line.length <= 200; })
+                        .slice(0, 8);
+                    if (lines.length) {
+                        list.replaceChildren.apply(list, lines.map(function (line) {
+                            var item = document.createElement('li');
+                            item.textContent = line;
+                            return item;
+                        }));
+                    }
                 }
                 var day = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(data.released || ''));
                 if (day && window.Intl) {

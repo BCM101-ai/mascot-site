@@ -941,3 +941,12 @@ body.doc code { overflow-wrap:anywhere; }
 .phone-note { margin-top: 14px; font-size: .92rem; line-height: 1.5; color: var(--muted); max-width: 34rem; }
 .phone-note a { font-weight: 600; }
 .phone-status { margin-top: 6px; min-height: 1.4em; font-size: .92rem; font-weight: 600; }
+
+/* "What's new", kept on the site rather than linked out to GitHub. */
+.whats-new { margin-top: 16px; max-width: 34rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.whats-new summary { cursor: pointer; padding: 11px 0; font-size: .92rem; font-weight: 600; color: var(--brand); list-style: none; }
+.whats-new summary::-webkit-details-marker { display: none; }
+.whats-new summary::after { content: " ↓"; }
+.whats-new[open] summary::after { content: " ↑"; }
+.whats-new summary:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 4px; }
+.whats-new ul { margin: 0 0 14px; padding-left: 1.15rem; display: grid; gap: 7px; font-size: .92rem; line-height: 1.45; color: var(--muted); }
