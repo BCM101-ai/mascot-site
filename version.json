@@ -1,5 +1,6 @@
 {
-  "version": "1.4",
+  "version": "0.3.0",
+  "released": "2026-09-10",
   "url": "https://studymascot.com/#download",
-  "summary": "Choose your own shortcut for adding a deadline, and hold a mood from My Mascots."
+  "summary": "An early preview: opens at login, says when nothing is connected yet, and asks before sending a crash report."
 }

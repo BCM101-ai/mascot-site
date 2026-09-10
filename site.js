@@ -33,14 +33,81 @@
     // app was on 1.4. Both the page and the app now read version.json, so a
     // release is one file to bump and neither can drift from the other.
     var versionSlots = document.querySelectorAll('[data-version]');
-    if (versionSlots.length && window.fetch) {
+    var releasedSlots = document.querySelectorAll('[data-released]');
+    if ((versionSlots.length || releasedSlots.length) && window.fetch) {
         fetch('version.json', { credentials: 'omit' })
             .then(function (r) { return r.ok ? r.json() : null; })
             .then(function (data) {
-                if (!data || !/^[0-9]+(\.[0-9]+){0,2}$/.test(String(data.version))) return;
-                versionSlots.forEach(function (el) { el.textContent = 'Version ' + data.version; });
+                if (!data) return;
+                if (/^[0-9]+(\.[0-9]+){0,2}$/.test(String(data.version))) {
+                    versionSlots.forEach(function (el) { el.textContent = 'Version ' + data.version; });
+                }
+                var day = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(data.released || ''));
+                if (day && window.Intl) {
+                    // Read as a calendar date, not a moment, so no time zone
+                    // can move it to the day before.
+                    var date = new Date(Date.UTC(+day[1], +day[2] - 1, +day[3]));
+                    var label = new Intl.DateTimeFormat('en-GB', {
+                        day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
+                    }).format(date);
+                    releasedSlots.forEach(function (el) {
+                        el.textContent = label;
+                        el.setAttribute('datetime', data.released);
+                    });
+                }
             })
-            .catch(function () { /* The sentence reads correctly without it. */ });
+            .catch(function () { /* The page's own text is right at publish time. */ });
+    }
+
+    // ---- 0b. phones ---------------------------------------------------------
+    // Nearly everyone arriving from an Instagram story is on a phone, and a
+    // phone cannot run a Mac app. The download buttons used to hand them a zip
+    // anyway: it downloaded, would not open, and they left. On anything that
+    // is not a Mac, the button sends the link to their Mac instead. The zip
+    // stays one tap away in case this guess is wrong.
+    var ua = navigator.userAgent || '';
+    // iPads report themselves as Macs; a touch screen gives them away.
+    var onMac = /Macintosh/.test(ua) && !(navigator.maxTouchPoints > 1);
+    if (!onMac) {
+        var shareURL = 'https://studymascot.com/#download';
+        document.querySelectorAll('a[data-mac-download]').forEach(function (link) {
+            var zip = link.getAttribute('href');
+            link.textContent = 'Send the link to my Mac';
+            link.setAttribute('href', '#download');
+
+            var note = document.createElement('p');
+            note.className = 'phone-note';
+            note.append('Mascot runs on a Mac, and this looks like a phone. Send yourself the link and open it there. ');
+            var anyway = document.createElement('a');
+            anyway.href = zip;
+            anyway.textContent = 'Download the zip anyway';
+            note.append(anyway);
+
+            var status = document.createElement('p');
+            status.className = 'phone-status';
+            status.setAttribute('role', 'status');
+
+            var anchor = link.parentElement && link.parentElement.tagName === 'P' ? link.parentElement : link;
+            anchor.after(note, status);
+
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                if (navigator.share) {
+                    // AirDrop, Messages, LINE and Notes all live in this sheet,
+                    // and any of them gets the link to the Mac.
+                    navigator.share({ title: 'Mascot', text: 'Mascot, a study buddy for my Mac', url: shareURL })
+                        .catch(function () { /* Closing the sheet is not an error. */ });
+                } else if (navigator.clipboard) {
+                    navigator.clipboard.writeText(shareURL).then(function () {
+                        status.textContent = 'Link copied. Open it on your Mac.';
+                    }, function () {
+                        status.textContent = 'Open studymascot.com on your Mac.';
+                    });
+                } else {
+                    status.textContent = 'Open studymascot.com on your Mac.';
+                }
+            });
+        });
     }
 
     // ---- 1. reveal ---------------------------------------------------------

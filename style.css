@@ -936,3 +936,8 @@ body.doc code { overflow-wrap:anywhere; }
     .guide-number { width:30px; height:30px; }
     .guide-step-title { font-size:.9rem; }
 }
+
+/* Shown only on phones and other non-Macs, under the download buttons. */
+.phone-note { margin-top: 14px; font-size: .92rem; line-height: 1.5; color: var(--muted); max-width: 34rem; }
+.phone-note a { font-weight: 600; }
+.phone-status { margin-top: 6px; min-height: 1.4em; font-size: .92rem; font-weight: 600; }
