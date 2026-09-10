@@ -28,6 +28,21 @@
         window.matchMedia('(max-width: 960px)').addEventListener('change', function () { closeMenu(false); });
     }
 
+    // ---- 0. version --------------------------------------------------------
+    // The page used to state a version number by hand, and said 1.2 while the
+    // app was on 1.4. Both the page and the app now read version.json, so a
+    // release is one file to bump and neither can drift from the other.
+    var versionSlots = document.querySelectorAll('[data-version]');
+    if (versionSlots.length && window.fetch) {
+        fetch('version.json', { credentials: 'omit' })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (data) {
+                if (!data || !/^[0-9]+(\.[0-9]+){0,2}$/.test(String(data.version))) return;
+                versionSlots.forEach(function (el) { el.textContent = 'Version ' + data.version; });
+            })
+            .catch(function () { /* The sentence reads correctly without it. */ });
+    }
+
     // ---- 1. reveal ---------------------------------------------------------
     var revealables = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window) {

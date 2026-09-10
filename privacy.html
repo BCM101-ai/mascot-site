@@ -76,7 +76,7 @@
 
 <h3>Google account data specifically</h3>
 
-<p>Mascot requests three Google OAuth scopes, all of them read-only:</p>
+<p>Mascot requests three read-only Google Classroom scopes:</p>
 
 <table>
     <tr><th>Scope</th><th>Used for</th></tr>
@@ -100,6 +100,15 @@
 <p>
     Mascot cannot modify, submit, or delete anything in Google Classroom. It has no
     write access. It cannot see other students' work.
+</p>
+
+<p>
+    Builds with account-matched assignment links also request <code>openid</code> and
+    <code>email</code> to identify the Google account connected to Mascot. The app reads
+    your verified email address directly from Google and keeps it in memory while running.
+    It includes that address in Classroom links so your browser can select the same account;
+    those links may appear in your browser history. The address is not sent to Mascot’s servers.
+    If the account cannot be identified, Google’s account chooser opens instead.
 </p>
 
 <h2>Where your data is stored</h2>
@@ -168,8 +177,38 @@
 <ul>
     <li><code>accounts.google.com</code> for signing in</li>
     <li><code>oauth2.googleapis.com</code> for renewing your session</li>
+    <li><code>openidconnect.googleapis.com</code> for identifying the account to use in Classroom links</li>
     <li><code>classroom.googleapis.com</code> and <code>www.googleapis.com</code> for reading your coursework</li>
 </ul>
+
+<h3>Checking for a new version</h3>
+
+<p>
+    Once a day, Mascot asks <code>studymascot.com</code> for a small file saying
+    which version is current. The request carries no account, no identifier and
+    nothing about you or your deadlines: it is the same file every visitor to the
+    website loads. If a newer version exists, Mascot says so and offers a link.
+    It never downloads or installs anything by itself. You can turn this off in
+    Settings, under Version.
+</p>
+
+<h3>Crash reports, only if you choose to send one</h3>
+
+<p>
+    If Mascot quits unexpectedly, the next time it opens it asks whether to send a
+    short report, and shows you the exact text before you decide. Nothing is sent
+    unless you click Send. The report says which versions of Mascot and macOS you
+    have, what kind of error it was, and the names of the functions inside Mascot
+    that were running when it stopped. It does not include your name, your account,
+    your deadlines, your files, or any identifier for your Mac: macOS keeps those in
+    its own crash files, and Mascot builds its report from a short list of fields
+    instead of sending those files.
+</p>
+
+<p>
+    Reports are stored on my server and only I can read them. You can turn the
+    question off in Settings, under Version, and ask me to delete a report you sent.
+</p>
 
 <h3>The mascot store, when you open it</h3>
 
@@ -320,7 +359,7 @@
     saved sign-in tokens. Delete the app and its <code>~/Library/Application Support/Mascot</code>
     folder to remove installed packs and typed deadlines. macOS preferences are stored separately;
     Calendar, Reminders and Google data remain with their respective apps and providers.
-    Contact me to request deletion of a creator account, submitted pack or feedback message.
+    Contact me to request deletion of a creator account, submitted pack, feedback message or crash report.
 </p>
 
 <h3>Permissions</h3>
