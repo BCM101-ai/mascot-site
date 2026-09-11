@@ -950,3 +950,35 @@ body.doc code { overflow-wrap:anywhere; }
 .whats-new[open] summary::after { content: " ↑"; }
 .whats-new summary:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 4px; }
 .whats-new ul { margin: 0 0 14px; padding-left: 1.15rem; display: grid; gap: 7px; font-size: .92rem; line-height: 1.45; color: var(--muted); }
+
+/* ---------- For school IT ----------
+   An admin's reference page: the facts first, then the steps, and readable
+   on paper, because this is the kind of page that gets printed and forwarded. */
+.schools .kicker { color: var(--brand); opacity: 1; margin: 0 0 10px; }
+.facts { margin: 18px 0; border-top: 1px solid var(--charcoal-line); }
+.facts > div { display: grid; grid-template-columns: 11rem 1fr; gap: 6px 18px; padding: 12px 0; border-bottom: 1px solid var(--charcoal-line); }
+.facts dt { font-weight: 700; color: var(--paper); font-size: .92rem; }
+.facts dd { margin: 0; color: var(--paper-muted); font-size: .92rem; line-height: 1.5; }
+.facts .client-id { display: block; width: fit-content; max-width: 100%; margin: 0 0 8px; word-break: break-all; font-size: .86rem; line-height: 1.6; }
+.copy { font: 600 .8rem var(--body); padding: 5px 12px; border-radius: 100px; border: 1px solid var(--charcoal-line); background: rgba(255, 244, 232, .08); color: var(--paper); cursor: pointer; vertical-align: middle; }
+.copy:hover { background: rgba(255, 244, 232, .16); }
+.copy:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.steps { padding-left: 1.3rem; display: grid; gap: 10px; }
+.steps li { padding-left: 4px; line-height: 1.55; }
+.steps li::marker { color: var(--brand); font-weight: 700; }
+body.doc strong { color: var(--paper); }
+@media (max-width: 600px) {
+    .facts > div { grid-template-columns: 1fr; gap: 2px; }
+}
+@media print {
+    body.doc { background: #fff; color: #000; }
+    body.doc h1, body.doc h2, body.doc h3, body.doc th, body.doc strong, .facts dt { color: #000; }
+    body.doc p, body.doc li, body.doc td, .facts dd, body.doc .lede, body.doc .note { color: #222; }
+    body.doc a, body.doc code, .schools .kicker { color: #000; }
+    body.doc code { background: #eee; }
+    body.doc .note { background: none; border-color: #999; }
+    body.doc header { padding-top: 0; }
+    .copy, body.doc footer { display: none; }
+}
+.schools table.lead-col th:first-child { width: 52%; }
+@media (max-width: 600px) { .schools table.lead-col th:first-child { width: 46%; } }

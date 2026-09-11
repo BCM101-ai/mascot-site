@@ -28,6 +28,40 @@
         window.matchMedia('(max-width: 960px)').addEventListener('change', function () { closeMenu(false); });
     }
 
+    // Copy buttons, for values people paste into a console (the school IT
+    // page's client ID). Hidden without JavaScript, where the text itself can
+    // still be selected. Falls back to selecting it when the clipboard is
+    // unavailable, so the button never does nothing.
+    document.querySelectorAll('[data-copy]').forEach(function (button) {
+        var source = document.getElementById(button.getAttribute('data-copy'));
+        if (!source) return;
+        button.hidden = false;
+        var label = button.textContent;
+        function selectText() {
+            var range = document.createRange();
+            range.selectNodeContents(source);
+            var selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+        function say(text) {
+            button.textContent = text;
+            setTimeout(function () { button.textContent = label; }, 1800);
+        }
+        button.addEventListener('click', function () {
+            var text = source.textContent.trim();
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(
+                    function () { say('Copied'); },
+                    function () { selectText(); say('Selected, now copy'); }
+                );
+            } else {
+                selectText();
+                say('Selected, now copy');
+            }
+        });
+    });
+
     // ---- 0. version --------------------------------------------------------
     // The page used to state a version number by hand, and said 1.2 while the
     // app was on 1.4. Both the page and the app now read version.json, so a

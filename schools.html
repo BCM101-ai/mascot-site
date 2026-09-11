@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://studymascot.com; media-src 'self'; connect-src 'self' https://studymascot.com https://fcyhiujhvafozihopxsu.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For school IT · Mascot</title>
+<meta name="description" content="What Mascot for macOS reads from Google Classroom, its OAuth client ID, and how to allow it in the Google Workspace for Education Admin console.">
+<link rel="stylesheet" href="style.css?v=20260911-schools1">
+</head>
+<body class="doc schools">
+<div class="wrap">
+
+<header style="padding-bottom:24px">
+    <p class="kicker">For school IT</p>
+    <h1>Allowing Mascot at your school</h1>
+    <p class="lede">What it reads, where the data goes, and the client ID to allow it. Last updated 11 September 2026</p>
+</header>
+
+<p class="note">
+    A student would like to use Mascot, a free macOS app that shows their Google Classroom
+    deadlines as a capybara in the Dock. It reads <strong>their own coursework, read-only,
+    directly from Google</strong>. No Mascot server receives it. If your domain blocks
+    third-party apps an admin has not configured, which is common for students designated
+    as under 18, Google shows the student "Access blocked" until the app is configured.
+</p>
+
+<h2>At a glance</h2>
+
+<dl class="facts">
+    <div>
+        <dt>App</dt>
+        <dd>Mascot for macOS. Google’s consent screen shows the name <em>Mascot</em> and
+            <code>studymascot.com</code>, brand verified by Google.</dd>
+    </div>
+    <div>
+        <dt>OAuth client ID</dt>
+        <dd>
+            <code class="client-id" id="client-id">94177684324-8dl7pbohtlndrnu1ao8ar6kt29i34das.apps.googleusercontent.com</code>
+            <button type="button" class="copy" data-copy="client-id" hidden>Copy</button>
+        </dd>
+    </div>
+    <div>
+        <dt>Client type</dt>
+        <dd>Installed desktop app. The student signs in on Google’s own page in their
+            browser (PKCE, loopback redirect to <code>127.0.0.1</code>). Mascot never sees
+            the password.</dd>
+    </div>
+    <div>
+        <dt>Google access</dt>
+        <dd>Read-only. Three Classroom scopes limited to the student’s own work, plus
+            <code>openid</code> and <code>email</code>. No write access, no admin scopes,
+            no domain-wide delegation.</dd>
+    </div>
+    <div>
+        <dt>Where data goes</dt>
+        <dd>From Google straight to the student’s Mac, held in memory while the app runs.
+            Not uploaded anywhere.</dd>
+    </div>
+    <div>
+        <dt>Publisher</dt>
+        <dd>Thanachot Ananritkul, an individual developer.
+            <a href="mailto:Thanachot10072550@gmail.com">Thanachot10072550@gmail.com</a></dd>
+    </div>
+    <div>
+        <dt>Privacy policy</dt>
+        <dd><a href="privacy.html">studymascot.com/privacy</a>. No ads, no analytics, no
+            third-party SDKs. Free.</dd>
+    </div>
+</dl>
+
+<h2>Allow it in two minutes</h2>
+
+<ol class="steps">
+    <li>Sign in to <a href="https://admin.google.com">admin.google.com</a> as an admin who can manage app access.</li>
+    <li>Go to <strong>Security → Access and data control → API controls</strong>, then click
+        <strong>Manage App Access</strong>. (Older consoles call it <em>Manage Third-Party App Access</em>.)</li>
+    <li>Under <em>Configured apps</em>, click <strong>Configure new app</strong>, paste the
+        client ID above, click <strong>Search</strong> and choose <strong>Mascot</strong>.</li>
+    <li>For <strong>Scope</strong>, pick the organisational units your students are in, or
+        leave the top level for everyone. Click <strong>Continue</strong>.</li>
+    <li>For <strong>Access to Google data</strong>, choose <strong>Specific Google data</strong>
+        and select the five scopes listed below. That grants exactly what Mascot asks for and
+        nothing else. <em>Limited</em> also works if Classroom is not a restricted service in
+        your domain. <em>Trusted</em> is more than it needs.</li>
+    <li>Click <strong>Continue</strong>, check the summary, then <strong>Finish</strong>.</li>
+</ol>
+
+<p>
+    Google says changes can take up to 24 hours but usually apply sooner. The student then
+    right-clicks the mascot and chooses <em>Sign In to Google Classroom…</em> again.
+</p>
+
+<p>
+    Rather approve case by case? If <em>Allow users to request access to apps for
+    themselves</em> is on for students, a blocked student can press <em>Request access</em>
+    on Google’s page, and Mascot appears under <em>Apps pending review</em>.
+</p>
+
+<h2>What it asks Google for</h2>
+
+<table class="lead-col">
+    <tr><th>Scope</th><th>What Mascot does with it</th></tr>
+    <tr>
+        <td><code>https://www.googleapis.com/auth/classroom.courses.readonly</code></td>
+        <td>Lists the classes the student is in, so deadlines can be labelled by class.</td>
+    </tr>
+    <tr>
+        <td><code>https://www.googleapis.com/auth/classroom.coursework.me.readonly</code></td>
+        <td>Reads the work assigned to the student and its due dates.</td>
+    </tr>
+    <tr>
+        <td><code>https://www.googleapis.com/auth/classroom.student-submissions.me.readonly</code></td>
+        <td>Checks whether the student has turned each piece in, so finished work stops
+            causing reminders.</td>
+    </tr>
+    <tr>
+        <td><code>openid</code>, <code>email</code></td>
+        <td>Identifies which account is connected, so a Classroom link opens in the matching
+            browser account instead of a personal one. The address stays in
+            memory on the Mac.</td>
+    </tr>
+</table>
+
+<p>Mascot cannot:</p>
+
+<ul>
+    <li>create, edit, submit, grade or delete anything in Classroom;</li>
+    <li>see other students, their work, class rosters or teacher-only material;</li>
+    <li>read Drive, Gmail, Google Calendar or any Google service other than Classroom;</li>
+    <li>act on the domain: it holds no admin scope and asks for no delegation.</li>
+</ul>
+
+<h2>Where the data goes</h2>
+
+<ul>
+    <li><strong>Sign-in</strong> happens on Google’s page in the student’s browser. The
+        resulting token is kept in the Mac’s Keychain.</li>
+    <li><strong>Coursework</strong> is fetched from Google’s APIs by the app itself and kept
+        in memory while it runs. It is not written to disk and not sent to any Mascot
+        server.</li>
+    <li><strong>No tracking.</strong> No analytics, no advertising, no usage data. Use of
+        Google data follows the
+        <a href="https://developers.google.com/terms/api-services-user-data-policy">Google
+        API Services User Data Policy</a>, including the Limited Use requirements.</li>
+    <li><strong>Crash reports</strong> are sent only if the student clicks Send after seeing
+        the exact text. They contain version numbers and function names, nothing about the
+        student.</li>
+    <li><strong>Removing access.</strong> <em>Sign Out of Classroom</em> in the app deletes
+        the token at once. You can also set Mascot to <em>Blocked</em> in the Admin console,
+        which ends its access for every account in scope.</li>
+</ul>
+
+<h2>Network, for firewalls and filters</h2>
+
+<table class="lead-col">
+    <tr><th>Host</th><th>When</th></tr>
+    <tr>
+        <td><code>accounts.google.com</code><br><code>oauth2.googleapis.com</code><br><code>openidconnect.googleapis.com</code></td>
+        <td>Signing in and renewing the session.</td>
+    </tr>
+    <tr>
+        <td><code>classroom.googleapis.com</code><br><code>www.googleapis.com</code></td>
+        <td>Reading coursework.</td>
+    </tr>
+    <tr>
+        <td><code>studymascot.com</code></td>
+        <td>A version check once a day, and the mascot store when the student opens it.
+            Neither carries anything about the student.</td>
+    </tr>
+    <tr>
+        <td><code>fcyhiujhvafozihopxsu.supabase.co</code></td>
+        <td>Optional features only: a crash report the student chose to send, or an account
+            for publishing a mascot drawing. Coursework never goes here.</td>
+    </tr>
+    <tr>
+        <td><code>github.com</code></td>
+        <td>Downloading the app. GitHub hands the file over from its own download servers.</td>
+    </tr>
+</table>
+
+<h2>On the Mac</h2>
+
+<dl class="facts">
+    <div><dt>Requirements</dt><dd>Apple silicon (M1 or later), macOS 14 or later.</dd></div>
+    <div><dt>Bundle ID</dt><dd><code>com.poupav.mascot</code></dd></div>
+    <div>
+        <dt>What installs</dt>
+        <dd>One app from a zip. No installer package, no system extensions, no background
+            daemons. A student without admin rights can run it from the Applications folder
+            inside their home folder.</dd>
+    </div>
+    <div>
+        <dt>Permissions</dt>
+        <dd>All optional, each asked only when the student turns that feature on: Calendar
+            and Reminders (one chosen calendar or list), and Accessibility, used only to find
+            where the Dock is.</dd>
+    </div>
+    <div>
+        <dt>At login</dt>
+        <dd>Opens at login, listed under System Settings → General → Login Items where it
+            can be switched off.</dd>
+    </div>
+    <div>
+        <dt>Signing</dt>
+        <dd>Signed with the hardened runtime. <strong>Not yet notarised by Apple</strong>:
+            macOS asks the student to confirm the first time it opens, and a policy that
+            only allows notarised apps will stop it. Notarisation is planned.</dd>
+    </div>
+</dl>
+
+<h2>Questions</h2>
+
+<p>
+    Mascot is made by one person. School IT questions are welcome, and if something here
+    does not match what you see in your console, I would like to know:
+    <a href="mailto:Thanachot10072550@gmail.com">Thanachot10072550@gmail.com</a>.
+</p>
+
+<footer>
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="mailto:Thanachot10072550@gmail.com">Contact</a>
+    <div style="margin-top:12px">© 2026 Thanachot Ananritkul</div>
+</footer>
+
+</div>
+<script src="site.js?v=20260911-schools1"></script>
+</body>
+</html>
