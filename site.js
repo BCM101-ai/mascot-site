@@ -455,6 +455,36 @@
     // When previewing on localhost there is no packs/ folder, so read the live one;
     // GitHub Pages sends Access-Control-Allow-Origin: * so that works.
     var grid = document.getElementById('packs');
+    // ---- the early-preview notice ------------------------------------------
+    // Once per browser, on the homepage: macOS warns about any app Apple has
+    // not notarised, and people should hear why before the warning, not after.
+    // Remembered in localStorage, which can be missing or refuse to work
+    // (private windows, blocked site data); then it is remembered for this
+    // tab only, and at worst shown again, never an error.
+    var notice = document.getElementById('preview-notice');
+    if (notice && typeof notice.showModal === 'function') {
+        var seenKey = 'mascot.previewNotice.v1';
+        var seen = false;
+        try { seen = localStorage.getItem(seenKey) === '1'; } catch (e) {
+            try { seen = sessionStorage.getItem(seenKey) === '1'; } catch (e2) {}
+        }
+        function remember() {
+            try { localStorage.setItem(seenKey, '1'); } catch (e) {
+                try { sessionStorage.setItem(seenKey, '1'); } catch (e2) {}
+            }
+        }
+        // However it closes: a button, Escape, or the backdrop.
+        notice.addEventListener('close', remember);
+        notice.querySelectorAll('[data-notice-close]').forEach(function (b) {
+            b.addEventListener('click', function () { notice.close(); });
+        });
+        notice.addEventListener('click', function (e) {
+            if (e.target !== notice) return;
+            var b = notice.getBoundingClientRect();
+            if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) notice.close();
+        });
+        if (!seen) notice.showModal();
+    }
     if (!grid) return;
     var local = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
     var CATALOG = local ? 'https://studymascot.com/packs/catalog.json' : 'packs/catalog.json';

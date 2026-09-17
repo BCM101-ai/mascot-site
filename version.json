@@ -1,14 +1,15 @@
 {
-  "version": "0.3.0",
-  "released": "2026-09-10",
+  "version": "0.3.2",
+  "released": "2026-09-17",
   "url": "https://studymascot.com/#download",
-  "summary": "An early preview: opens at login, says when nothing is connected yet, and asks before sending a crash report.",
+  "summary": "Reminders fit long assignment names, school blocks point to a page for IT, and Mascot uses less battery.",
   "highlights": [
-    "Opens when you log in, so a restart no longer ends Mascot.",
-    "A new install says “Nothing connected yet” instead of “All clear”.",
-    "Choose your own shortcut for adding a deadline.",
-    "Hold a mood from My Mascots, and choose how big your mascot is.",
-    "Tells you when an update is out, and asks before sending a crash report.",
-    "Explains when your school is the one blocking Classroom."
+    "Reminders with long assignment names now show the Snooze and Open buttons.",
+    "The reminder bubble floats above the Dock instead of sitting behind it.",
+    "When your school blocks Classroom, Mascot links a page you can send to your school's IT.",
+    "Sign-in stops waiting after 2 minutes if Google has blocked it.",
+    "Uses less battery while idle, and pauses its animation when your screen is off.",
+    "Works with the Dock on the left or right side of the screen.",
+    "Mascot Studio is put away for now, while the pack tools are finished."
   ]
 }
