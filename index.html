@@ -20,7 +20,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/favicon.png">
-<link rel="stylesheet" href="style.css?v=20260911-whatsnew1">
+<link rel="stylesheet" href="style.css?v=20260917-mac-showcase1">
 </head>
 <body class="home">
 <a class="skip-link" href="#preview">Skip to the interactive preview</a>
@@ -75,11 +75,17 @@
                 </div>
             </div>
             <div class="desktop-scene" data-state="clear">
-                <div class="desktop-caption" aria-hidden="true"><span>Mascot on your Mac</span><span class="desktop-status">Just hanging out</span></div>
+                <div class="mac-menubar" aria-hidden="true">
+                    <div class="mac-menu-left"><span class="mac-apple"></span><b>Finder</b><span>File</span><span>Edit</span><span class="mac-menu-view">View</span><span class="mac-menu-extra">Go</span><span class="mac-menu-extra">Window</span><span class="mac-menu-extra">Help</span></div>
+                    <div class="mac-menu-right"><svg viewBox="0 0 26 16" class="mac-battery"><rect x="1" y="3" width="21" height="11" rx="3"/><path d="M25 6v5"/><rect x="3" y="5" width="16" height="7" rx="1" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 20 16"><path d="M2 5q8-7 16 0M5 8q5-4 10 0M8 11q2-2 4 0"/><circle cx="10" cy="14" r="1" fill="currentColor" stroke="none"/></svg><span class="mac-clock">Thu 9:41 AM</span></div>
+                </div>
+                <div class="mac-camera" aria-hidden="true"></div>
+                <div class="desktop-caption"><span class="desktop-status" role="status">Just hanging out</span></div>
                 <section class="work-panel" aria-labelledby="work-title">
+                    <div class="work-titlebar"><div class="window-controls"><button class="work-close" type="button" aria-label="Hide Upcoming work panel"><span>×</span></button><i class="window-minimize" aria-hidden="true"></i><i class="window-zoom" aria-hidden="true"></i></div><span>Mascot</span><svg aria-hidden="true" viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" rx="3"/><path d="M8 3v14"/></svg></div>
                     <div class="work-heading">
                         <div><h2 id="work-title">Upcoming work</h2><p id="work-count">Nothing pending</p></div>
-                        <button class="work-close" type="button" aria-label="Hide Upcoming work panel">×</button>
+                        <span class="work-app-icon" aria-hidden="true"><img src="img/favicon.png" alt="" width="28" height="28"></span>
                     </div>
                     <div class="work-content" aria-live="polite" aria-atomic="true">
                         <div class="work-empty">
@@ -97,18 +103,18 @@
                 <div class="dock-assembly">
                 <button class="desktop-pet" type="button" aria-label="Show Upcoming work panel" title="Click your buddy to open Upcoming work"><span class="sprite expressive sprite--calm" aria-hidden="true"></span></button>
                 <div class="mac-dock" aria-hidden="true">
-                    <span class="dock-icon dock-blue"><svg viewBox="0 0 32 32"><path d="M9 11v3m14-3v3M8 21q8 6 16 0M16 5l-2 14h5"/></svg></span>
-                    <span class="dock-icon dock-calendar"><span>FRI</span><b>12</b></span>
+                    <span class="dock-icon dock-blue dock-running"><svg viewBox="0 0 32 32"><path d="M9 11v3m14-3v3M8 21q8 6 16 0M16 5l-2 14h5"/></svg></span>
+                    <span class="dock-icon dock-calendar"><span>SEP</span><b>17</b></span>
                     <span class="dock-icon dock-notes"><svg viewBox="0 0 32 32"><path d="M8 11h16M8 17h16M8 23h11"/></svg></span>
                     <span class="dock-icon dock-purple"><svg viewBox="0 0 32 32"><path d="M11 22V9l13-3v13M11 20c-8-4-10 7-3 6 3 0 3-2 3-6Zm13-3c-8-4-10 7-3 6 3 0 3-2 3-6Z"/></svg></span>
                     <span class="dock-icon dock-mail"><svg viewBox="0 0 32 32"><rect x="5" y="8" width="22" height="17" rx="3"/><path d="m6 10 10 8 10-8"/></svg></span>
                     <span class="dock-divider"></span>
-                    <span class="dock-icon dock-window"><svg viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="21" rx="3"/><path d="M4 12h24m-19-3h1m3 0h1m3 0h1"/></svg></span>
+                    <span class="dock-icon dock-window dock-running"><img src="img/favicon.png" alt="" width="36" height="36"></span>
                     <span class="dock-icon dock-trash"><svg viewBox="0 0 32 32"><path d="M9 10h14l-2 17H11L9 10ZM7 7h18M13 4h6M14 13v10m4-10v10"/></svg></span>
                 </div>
                 </div>
             </div>
-            <p class="preview-caption">Interactive preview · Expressive capybara <span>Click a mood above, or tap your buddy.</span></p>
+            <div class="preview-caption"><p>Made for your Mac. Here for you.<span>Try a mood, check off the work, or tap your buddy.</span></p><button type="button" class="preview-play" aria-pressed="false"><span aria-hidden="true">▶</span> Play demo</button></div>
             <details class="real-demo" id="real-demo">
                 <summary><span class="play-mark" aria-hidden="true">▶</span> Watch it on a real Mac <span class="demo-length">20 seconds</span></summary>
                 <div class="real-demo-content">
@@ -432,20 +438,17 @@
 
         <div class="make-own">
             <div class="reveal">
-                <h3>Make your own</h3>
+                <h3>Make your own, soon</h3>
                 <p class="muted">
                     The capybara is just the first one. Every mood is its own drawing with its own
                     frames, so a pack can have <em>calm</em> asleep in one frame and <em>overdue</em>
                     on fire in eight.
                 </p>
-                <ol class="steps">
-                    <li>In Mascot, turn on <strong>Settings › Making packs › Show creator tools</strong>.</li>
-                    <li>Drop a drawing into each mood slot and confirm the frame count.</li>
-                    <li><strong>Install and wear it</strong> to judge it on your own desk, then <strong>Export for submission</strong>.</li>
-                </ol>
                 <p class="muted" style="margin-top:14px">
-                    Every pack is looked at by a person before it is listed, most obviously for art
-                    that is not the submitter's to share.
+                    The tools for drawing a pack and sharing it in the store are coming in a later
+                    version of Mascot. When they arrive, every pack will be looked at by a person
+                    before it is listed, most obviously for art that is not the submitter's to share.
+                    Want to be first? <a href="mailto:Thanachot10072550@gmail.com?subject=Making%20a%20Mascot%20pack">Tell me you draw</a>.
                 </p>
             </div>
             <div class="card reveal" style="--i:1; text-align:center">
@@ -678,6 +681,6 @@
 </footer>
 
 <script src="pack-previews.js?v=20260906-classroom1" defer></script>
-<script src="site.js?v=20260911-whatsnew1" defer></script>
+<script src="site.js?v=20260917-mac-showcase1" defer></script>
 </body>
 </html>

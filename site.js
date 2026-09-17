@@ -248,6 +248,41 @@
         var pet = scene.querySelector('.desktop-pet .sprite');
         var content = scene.querySelector('.work-content');
         var previewModes = document.querySelectorAll('[data-preview]');
+        var playDemo = document.querySelector('.preview-play');
+        var demoTimer;
+        var demoStep = 0;
+        var demoSteps = ['clear', 'urgent', 'overdue', 'complete'];
+        function stopDemo() {
+            clearTimeout(demoTimer);
+            playDemo.setAttribute('aria-pressed', 'false');
+            playDemo.innerHTML = '<span aria-hidden="true">▶</span> Play demo';
+        }
+        function advanceDemo() {
+            var state = demoSteps[demoStep];
+            preview(state === 'complete' ? 'clear' : state, state === 'complete');
+            demoStep += 1;
+            demoTimer = setTimeout(demoStep < demoSteps.length ? advanceDemo : stopDemo, 3200);
+        }
+        function syncDemoMotion() {
+            if (reduced.matches || paused || document.hidden) stopDemo();
+            playDemo.disabled = reduced.matches || paused;
+        }
+        playDemo.addEventListener('click', function () {
+            if (playDemo.getAttribute('aria-pressed') === 'true') { stopDemo(); return; }
+            demoStep = 0;
+            playDemo.setAttribute('aria-pressed', 'true');
+            playDemo.innerHTML = '<span aria-hidden="true">Ⅱ</span> Pause demo';
+            advanceDemo();
+        });
+        if (motion) motion.addEventListener('click', syncDemoMotion);
+        if (reduced.addEventListener) reduced.addEventListener('change', syncDemoMotion);
+        document.addEventListener('visibilitychange', syncDemoMotion);
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (entries) {
+                if (!entries[0].isIntersecting) stopDemo();
+            }).observe(scene);
+        }
+        syncDemoMotion();
         function preview(state, completed) {
             var clear = state === 'clear';
             scene.dataset.state = state;
@@ -265,17 +300,20 @@
             void content.offsetWidth;
             content.classList.add('state-changed');
         }
-        previewModes.forEach(function (b) { b.addEventListener('click', function () { preview(b.dataset.preview); }); });
-        scene.querySelector('.complete-assignment').addEventListener('click', function () { preview('clear', true); });
+        previewModes.forEach(function (b) { b.addEventListener('click', function () { stopDemo(); preview(b.dataset.preview); }); });
+        scene.querySelector('.complete-assignment').addEventListener('click', function () { stopDemo(); preview('clear', true); });
         scene.querySelector('.work-close').addEventListener('click', function () {
+            stopDemo();
             panel.hidden = true;
             scene.querySelector('.desktop-pet').focus({ preventScroll: true });
         });
         scene.querySelector('.desktop-pet').addEventListener('click', function () {
+            stopDemo();
             panel.hidden = false;
             scene.querySelector('.work-close').focus({ preventScroll: true });
         });
         scene.querySelector('.work-refresh').addEventListener('click', function () {
+            stopDemo();
             preview(scene.dataset.state);
             document.getElementById('work-updated').textContent = 'Sample refreshed just now';
         });
