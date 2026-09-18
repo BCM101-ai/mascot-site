@@ -1,9 +1,10 @@
 {
-  "version": "0.3.2",
-  "released": "2026-09-17",
+  "version": "0.3.3",
+  "released": "2026-09-18",
   "url": "https://studymascot.com/#download",
-  "summary": "Reminders fit long assignment names, school blocks point to a page for IT, and Mascot uses less battery.",
+  "summary": "Your mascot moves at a calmer 8 frames a second, plus the 0.3.2 fixes: reminders fit long names, less battery, and help when your school blocks Classroom.",
   "highlights": [
+    "Your mascot moves at a calmer pace: 8 frames a second instead of 10.",
     "Reminders with long assignment names now show the Snooze and Open buttons.",
     "The reminder bubble floats above the Dock instead of sitting behind it.",
     "When your school blocks Classroom, Mascot links a page you can send to your school's IT.",

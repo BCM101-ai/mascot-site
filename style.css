@@ -121,7 +121,7 @@ a  { color: var(--brand-2); }
 
 /* ---------- sprites ----------
    A sheet is N frames in one row. --fw is the rendered frame width; the frame is
-   180x144 so height follows at 0.8. Frames advance at the app's own 10 fps. */
+   180x144 so height follows at 0.8. Frames advance at the app's own 8 fps. */
 .sprite {
     --fw: 90px;
     --frames: 8;
@@ -133,7 +133,7 @@ a  { color: var(--brand-2); }
     background-position: 0 0;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-    animation: sprite-play calc(var(--frames) * 0.1s) steps(var(--frames)) infinite;
+    animation: sprite-play calc(var(--frames) * 0.125s) steps(var(--frames)) infinite;
 }
 @keyframes sprite-play { to { background-position: calc(var(--fw) * var(--frames) * -1) 0; } }
 
