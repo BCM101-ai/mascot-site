@@ -1,13 +1,12 @@
 {
-  "version": "0.3.6",
+  "version": "0.3.7",
   "released": "2026-10-06",
   "url": "https://studymascot.com/#download",
-  "summary": "Signing out of Classroom and signing back in work properly after an update.",
+  "summary": "Capybara Classic is now your default mascot, with a new glass look for windows.",
   "highlights": [
-    "Sign Out of Classroom now really signs you out, even if you signed in on an older version of Mascot.",
-    "After signing out, Sign In to Google Classroom is offered again and works.",
-    "When Mascot cannot check your deadlines, the panel says so instead of All clear.",
-    "If your school blocks Classroom, the menu now says so instead of saying connected.",
-    "If Mascot still says connected after you update, choose Sign Out of Classroom once, then sign in again."
+    "Capybara Classic is now the built-in mascot. Your other packs, deadlines and settings carry over.",
+    "The Upcoming work panel, quick add, setup panels and speech bubble have a new glass look.",
+    "macOS 26 uses Apple’s Liquid Glass. Earlier macOS versions use a translucent look.",
+    "Reduce Transparency or Increase Contrast gives you solid windows for easier reading."
   ]
 }

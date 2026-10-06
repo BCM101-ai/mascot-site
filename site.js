@@ -287,7 +287,7 @@
             var clear = state === 'clear';
             scene.dataset.state = state;
             panel.hidden = false;
-            pet.className = 'sprite expressive sprite--' + (clear ? 'calm' : state);
+            pet.className = 'sprite sprite--' + (clear ? 'calm' : state);
             scene.querySelector('.work-empty').hidden = !clear;
             scene.querySelector('.work-assignment').hidden = clear;
             document.getElementById('work-count').textContent = clear ? 'Nothing pending' : '1 item';

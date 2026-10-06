@@ -121,12 +121,12 @@ a  { color: var(--brand-2); }
 
 /* ---------- sprites ----------
    A sheet is N frames in one row. --fw is the rendered frame width; the frame is
-   180x144 so height follows at 0.8. Frames advance at the app's own 5 fps. */
+   156x144 for Classic, so height follows at 12/13. Frames advance at the app's own 5 fps. */
 .sprite {
     --fw: 90px;
     --frames: 8;
     width: var(--fw);
-    height: calc(var(--fw) * 0.8);
+    height: calc(var(--fw) * 12 / 13);
     background-image: var(--sheet);
     background-repeat: no-repeat;
     background-size: calc(var(--fw) * var(--frames)) 100%;
@@ -137,11 +137,11 @@ a  { color: var(--brand-2); }
 }
 @keyframes sprite-play { to { background-position: calc(var(--fw) * var(--frames) * -1) 0; } }
 
-.sprite--calm      { --sheet: url(art/calm_8frames.png); }
-.sprite--attentive { --sheet: url(art/attentive_8frames.png); }
-.sprite--worried   { --sheet: url(art/worried_8frames.png); }
-.sprite--urgent    { --sheet: url(art/urgent_8frames.png); }
-.sprite--overdue   { --sheet: url(art/overdue_8frames.png); }
+.sprite--calm      { --sheet: url(art/classic-calm_8frames.png); }
+.sprite--attentive { --sheet: url(art/classic-attentive_8frames.png); }
+.sprite--worried   { --sheet: url(art/classic-worried_8frames.png); }
+.sprite--urgent    { --sheet: url(art/classic-urgent_8frames.png); }
+.sprite--overdue   { --sheet: url(art/classic-overdue_8frames.png); }
 
 /* ---------- nav ---------- */
 .nav {
@@ -567,11 +567,6 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
 /* Desktop preview: the panel, anchored paws and Dock share one coordinate system. */
 [hidden] { display: none !important; }
 .sprite { display: block; flex-shrink: 0; }
-.expressive.sprite--calm { --sheet: url(art/expressive-calm_8frames.png); }
-.expressive.sprite--attentive { --sheet: url(art/expressive-attentive_8frames.png); }
-.expressive.sprite--worried { --sheet: url(art/expressive-worried_8frames.png); }
-.expressive.sprite--urgent { --sheet: url(art/expressive-urgent_8frames.png); }
-.expressive.sprite--overdue { --sheet: url(art/expressive-overdue_8frames.png); }
 .desktop-demo { max-width: 900px; margin: 26px auto 0; position: relative; }
 .preview-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 0 4px 18px; }
 .preview-toolbar > p { margin: 0; font-size: .95rem; font-weight: 500; }
@@ -607,7 +602,8 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
 .work-heading { padding:17px 20px 14px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .work-heading h2 { font:650 18px/1.3 var(--body); margin:0 0 3px; letter-spacing:-.025em; }
 .work-heading p { color:#74777e; margin:0; font-size:11px; }
-.work-app-icon { display:grid; place-items:center; width:35px; height:35px; border-radius:9px; background:linear-gradient(#f9e6c9,#e7bd85); border:1px solid #cba7796b; box-shadow:0 1px 3px #0001; }
+.work-app-icon { display:grid; place-items:center; width:35px; height:35px; }
+.work-app-icon img { width:100%; height:100%; image-rendering:pixelated; }
 .work-content { min-height:140px; display:grid; align-items:center; margin:0 12px 12px; background:#fff9; border:1px solid #00000009; border-radius:8px; }
 .work-empty { padding:18px; text-align:center; }
 .work-empty svg { width:32px; height:32px; stroke:#5c8b76; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; margin-bottom:7px; }
@@ -630,7 +626,7 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
 @keyframes panel-content-in { from { opacity:.4; transform:translateY(5px); } to { opacity:1; transform:none; } }
 /* The sprite's paw line stays on the Dock's top edge at every size. */
 .dock-assembly { position:absolute; width:min(570px,94%); left:50%; transform:translateX(-50%); bottom:var(--dock-bottom); height:var(--dock-height); }
-.desktop-pet { position:absolute; right:0; bottom:calc(var(--dock-height) - var(--pet-width) * .36666667); z-index:3; border:0; padding:0; background:none; cursor:pointer; border-radius:12px; }
+.desktop-pet { position:absolute; right:0; bottom:calc(var(--dock-height) - var(--pet-width) * .30128205); z-index:3; border:0; padding:0; background:none; cursor:pointer; border-radius:12px; }
 .desktop-pet .sprite { --fw:var(--pet-width); filter:drop-shadow(0 5px 3px #0002); }
 .desktop-pet:hover { filter:brightness(1.06); }
 .mac-dock { position:absolute; left:0; right:calc(var(--pet-width) * .38); bottom:0; height:100%; border:1px solid #fff8; border-radius:16px; background:linear-gradient(180deg,#e9eff09c,#dae7ef66); backdrop-filter:blur(24px) saturate(1.5); -webkit-backdrop-filter:blur(24px) saturate(1.5); box-shadow:0 6px 20px #091e352e,inset 0 0 0 1px #ffffff26; display:flex; align-items:center; justify-content:center; gap:14px; padding:8px 14px 12px; }
@@ -646,8 +642,8 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
 .dock-calendar { background:#fffcf8; display:flex; flex-direction:column; color:#242528; gap:0; overflow:hidden; }
 .dock-calendar span { color:#e74646; width:100%; text-align:center; font-size:8px; line-height:14px; font-weight:600; }
 .dock-calendar b { font-size:25px; line-height:26px; font-weight:300; letter-spacing:-1px; }
-.dock-window { background:linear-gradient(#fbe3bd,#d69c58); }
-.dock-window img { width:34px; height:34px; image-rendering:pixelated; }
+.dock-window { background:none; box-shadow:none; }
+.dock-window img { width:100%; height:100%; image-rendering:pixelated; }
 .dock-trash { background:linear-gradient(135deg,#e6edf1,#aebecb); }
 .dock-trash svg { stroke:#f8fcff; }
 .dock-divider { width:1px; height:38px; background:#36536f30; margin-inline:2px; }
@@ -751,7 +747,6 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
     .mac-dock { gap:9px; padding:8px 10px 12px; border-radius:13px; }
     .dock-icon { width:34px; height:34px; border-radius:8px; }
     .dock-icon svg { width:25px; height:25px; }
-    .dock-window img { width:28px; height:28px; }
     .dock-calendar span { line-height:11px; font-size:7px; }
     .dock-calendar b { font-size:21px; line-height:22px; }
     .dock-icon:nth-child(4), .dock-trash { display:none; }
