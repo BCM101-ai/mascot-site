@@ -626,7 +626,7 @@ body.doc footer a { color: var(--brand); margin: 0 18px 0 0; }
 @keyframes panel-content-in { from { opacity:.4; transform:translateY(5px); } to { opacity:1; transform:none; } }
 /* The sprite's paw line stays on the Dock's top edge at every size. */
 .dock-assembly { position:absolute; width:min(570px,94%); left:50%; transform:translateX(-50%); bottom:var(--dock-bottom); height:var(--dock-height); }
-.desktop-pet { position:absolute; right:3px; bottom:calc(var(--dock-height) - var(--pet-width) * .30128205 - 3px); z-index:3; border:0; padding:0; background:none; cursor:pointer; border-radius:12px; }
+.desktop-pet { position:absolute; right:8px; bottom:calc(var(--dock-height) - var(--pet-width) * .30128205 - 3px); z-index:3; border:0; padding:0; background:none; cursor:pointer; border-radius:12px; }
 .desktop-pet .sprite { --fw:var(--pet-width); filter:drop-shadow(0 5px 3px #0002); }
 .desktop-pet:hover { filter:brightness(1.06); }
 .mac-dock { position:absolute; left:0; right:calc(var(--pet-width) * .38); bottom:0; height:100%; border:1px solid #fff8; border-radius:16px; background:linear-gradient(180deg,#e9eff09c,#dae7ef66); backdrop-filter:blur(24px) saturate(1.5); -webkit-backdrop-filter:blur(24px) saturate(1.5); box-shadow:0 6px 20px #091e352e,inset 0 0 0 1px #ffffff26; display:flex; align-items:center; justify-content:center; gap:14px; padding:8px 14px 12px; }
