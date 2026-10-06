@@ -1,15 +1,11 @@
 {
-  "version": "0.3.4",
-  "released": "2026-10-05",
+  "version": "0.3.5",
+  "released": "2026-10-06",
   "url": "https://studymascot.com/#download",
-  "summary": "A calmer capybara that reacts when deadlines change, a new overdue look, and the 0.3.2 fixes for reminders and school blocks.",
+  "summary": "A new app icon, and safer pack installs.",
   "highlights": [
-    "Animations are calmer: 5 frames a second instead of 10.",
-    "Your mascot reacts when things change: a hop when a deadline gets closer, a wiggle when you hand work in.",
-    "Overdue now looks slumped and defeated instead of asleep.",
-    "Reminders with long assignment names show the Snooze and Open buttons, and the bubble floats above the Dock.",
-    "When your school blocks Classroom, Mascot links a page you can send to your school's IT.",
-    "Uses less battery while idle, and works with the Dock on the left or right side of the screen.",
-    "Mascot Studio is put away for now, while the pack tools are finished."
+    "A new app icon: the capybara resting its paws on a ledge, sharp at every size.",
+    "Installing a mascot pack is safer: oversized pictures and archives are turned away before they are opened.",
+    "If the old icon still shows after you update, restarting your Mac clears it."
   ]
 }
