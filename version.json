@@ -1,12 +1,10 @@
 {
-  "version": "0.3.7",
-  "released": "2026-10-06",
+  "version": "0.3.8",
+  "released": "2026-10-07",
   "url": "https://studymascot.com/#download",
-  "summary": "Capybara Classic is now your default mascot, with a new glass look for windows.",
+  "summary": "Only one Mascot runs at a time now.",
   "highlights": [
-    "Capybara Classic is now the built-in mascot. Your other packs, deadlines and settings carry over.",
-    "The Upcoming work panel, quick add, setup panels and speech bubble have a new glass look.",
-    "macOS 26 uses Apple’s Liquid Glass. Earlier macOS versions use a translucent look.",
-    "Reduce Transparency or Increase Contrast gives you solid windows for easier reading."
+    "If Mascot is already open, opening it again shows the one that is running instead of adding a second capybara.",
+    "An older copy of Mascot that opens, such as one left in Downloads, closes so only one runs."
   ]
 }
